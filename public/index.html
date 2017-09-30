@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dandory Kitchen</title>
+
+    <style>
+      body, html {
+        font-family: arial, sans-serif;
+        font-size: 11pt;
+      }
+
+      #visualization {
+        box-sizing: border-box;
+        width: 100%;
+        height: 300px;
+      }
+    </style>
+
+    <!-- note: moment.js must be loaded before vis.js, else vis.js uses its embedded version of moment.js -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <script src="vendor/js/vis.min.js"></script>
+    <link href="vendor/css/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Dandory Kitchen</h1>
+    <div id="visualization"></div>
+    <script src="js/dandory.js"></script>
+  </body>
+</html>
