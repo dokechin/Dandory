@@ -58,18 +58,21 @@ var app4 = new Vue({
         // create a dataset with items
         var items = new vis.DataSet();
         var dandoryIndex = 0;
-        selectedMenus.forEach(function (menu){
+        var color = d3.scaleOrdinal(d3.schemeCategory10);
+        selectedMenus.forEach(function (menu,index){
           menu.dandoryes.forEach(function (dandory){
             var start = now.clone().add(dandory.start, 'minutes');
             var end = now.clone().add(dandory.end, 'minutes');
             var group = resources[dandory.resource];
+            var itemColor = color(index);
             items.add({
               id: dandoryIndex++,
               group: group,
               content: dandory.name,
               start: start,
               end: end,
-              type: 'range'
+              type: 'range',
+              style: "background-color: " + itemColor + ";"
             });
           });
         });
