@@ -1,17 +1,17 @@
 var menu1 = {
   name : '秋刀魚の塩焼き',
   dandoryes : [
-    {name : '塩をまぶす', resource : '作業台',start : 0,  end : 5},
-    {name : '染み込ませる', resource : '冷蔵庫',start : 5,  end : 20},
-    {name : '焼く', resource : 'グリル',start : 20, end : 27}
+    {name : '塩をまぶす', content : '秋刀魚に塩をひとつまみ振ります', resource : '作業台',start : 0,  end : 5},
+    {name : '染み込ませる', content : '冷蔵庫で十五分塩を染み込ませます', resource : '冷蔵庫',start : 5,  end : 20},
+    {name : '焼く', content : 'グリルで中火で焼きます' , resource : 'グリル',start : 20, end : 27}
 ]};
 
 var menu2 = {
   name : '味噌汁',
   dandoryes : [
-    {name : '野菜を切る', resource : 'まな板',start : 0,  end : 5},
-    {name : '煮る', resource : 'コンロ',start : 5,  end : 10},
-    {name : '味噌を溶く', resource : 'コンロ',start : 10, end : 13}
+    {name : '野菜を切る', content : '一口サイズに野菜を切ります', resource : 'まな板',start : 0,  end : 5},
+    {name : '煮る', content: '野菜がやわらなくなるまで煮ます', resource : 'コンロ',start : 5,  end : 10},
+    {name : '味噌を溶く', content : '火を止めてから、味噌を入れます', resource : 'コンロ',start : 10, end : 13}
 ]};
 
 var menus = [menu1, menu2];
@@ -68,6 +68,7 @@ var app4 = new Vue({
             items.add({
               id: dandoryIndex++,
               group: group,
+              title: dandory.content,
               content: dandory.name,
               start: start,
               end: end,
