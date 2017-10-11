@@ -26,14 +26,16 @@
   </head>
   <body>
     <h1>Dandory Kitchen</h1>
-    <div id="visualization"></div>
     <div id="app">
       <div v-for="menu,index in menus">
         <label>{{ menu.name }}</label>
         <input type="checkbox" :value="index" v-model="selectedIndex">
       </div>
       <button v-on:click="renderTimeline">段取り表示</button>
+      <br>
+      <button v-on:click="start">スタート</button>
     </div>    
+    <div id="visualization"></div>
     <script src="js/dandory.js"></script>
   </body>
 </html>

@@ -28,6 +28,11 @@ var app4 = new Vue({
       this.timeline = new vis.Timeline(container);      
     },
     methods: {
+      start : function(){
+        this.timeline.setOptions({showCurrentTime : true});
+        this.timeline.fit();
+        this.timeline.redraw();
+      },
       renderTimeline : function(){
       var selectedMenus = [];
       for(var i=0;i<this.selectedIndex.length;i++){
@@ -80,7 +85,15 @@ var app4 = new Vue({
       
         // create visualization
         var options = {
-          groupOrder: 'content'
+          groupOrder: 'content',
+          showCurrentTime: false,
+          editable: {
+            add: false,         // add new items by double tapping
+            updateTime: true,  // drag items horizontally
+            updateGroup: false, // drag items from one group to another
+            remove: false,       // delete an item by tapping the delete button top right
+            overrideItems: false  // allow these options to override item.editable
+          }
         };
         this.timeline.setOptions(options);
         this.timeline.setGroups(groups);
