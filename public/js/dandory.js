@@ -14,6 +14,8 @@ var menu2 = {
     {name : '味噌を溶く', content : '火を止めてから、味噌を入れます', resource : 'コンロ',start : 10, end : 13}
 ]};
 
+var now;
+
 var menus = [menu1, menu2];
 
 var app4 = new Vue({
@@ -29,7 +31,22 @@ var app4 = new Vue({
     },
     methods: {
       start : function(){
+
+        console.log("start called");
+        var current = moment().milliseconds(0);
+        var past =  current - now;
+        now = current;
+
+        var updateItems = new vis.DataSet();
+        
+        this.items.forEach(function(item){
+          item.start = item.start.add(past,'milliseconds');
+          item.end = item.end.add(past,'milliseconds');
+          updateItems.add(item);
+        });
         this.timeline.setOptions({showCurrentTime : true});
+        this.timeline.setCurrentTime(now);
+        this.timeline.setItems(updateItems);
         this.timeline.fit();
         this.timeline.redraw();
       },
@@ -39,7 +56,8 @@ var app4 = new Vue({
       selectedMenus.push(menus[this.selectedIndex[i]]);
       }
           
-      var now = moment().milliseconds(0);
+      now = moment().milliseconds(0);
+      console.log(now);
       
         var resources = {};
       
@@ -61,7 +79,8 @@ var app4 = new Vue({
         }
       
         // create a dataset with items
-        var items = new vis.DataSet();
+        this.items = new vis.DataSet();
+        var items = this.items;
         var dandoryIndex = 0;
         var color = d3.scaleOrdinal(d3.schemeCategory10);
         selectedMenus.forEach(function (menu,index){
@@ -97,7 +116,7 @@ var app4 = new Vue({
         };
         this.timeline.setOptions(options);
         this.timeline.setGroups(groups);
-        this.timeline.setItems(items);
+        this.timeline.setItems(this.items);
         this.timeline.fit();
         this.timeline.redraw();
             
