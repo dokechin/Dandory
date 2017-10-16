@@ -41,6 +41,7 @@ var app = new Vue({
 
        var resources = dishes2resources(selectedDishes);
        var tasks = dishes2tasks(selectedDishes);
+       now = moment().milliseconds(0);
        var s = schedule.create(tasks, resources, null, new Date());
       
         var resources = {};
