@@ -3,6 +3,12 @@ var now;
 var app = new Vue({
     el: '#app',
     data: {
+      human : 1,
+      stove : 2,
+      microwave : 1,
+      oven : 1,
+      grill : 1,
+      counter : 1,
       menus : dishes,
       selectedIndex : [],
       timeline : null
@@ -14,7 +20,6 @@ var app = new Vue({
     methods: {
       start : function(){
 
-        console.log("start called");
         var current = moment().milliseconds(0);
         var past =  current - now;
         now = current;
@@ -33,36 +38,26 @@ var app = new Vue({
         this.timeline.redraw();
       },
       renderTimeline : function(){
-      
+
         var selectedDishes = [];
         for(var i=0;i<this.selectedIndex.length;i++){
           selectedDishes.push(dishes[this.selectedIndex[i]]);
        }
 
-       var resources = dishes2resources(selectedDishes);
-       var tasks = dishes2tasks(selectedDishes);
+       var kitchen = new Kitchen(this.human, this.stove, this.microwave, this.oven, this.grill, this.counter);
+
+       var tasks = kitchen.getTasksForDish(selectedDishes);
+       var resources = kitchen.getResourcesForDish(selectedDishes);
        now = moment().milliseconds(0);
-       var s = schedule.create(tasks, resources, null, new Date());
-      
-        var resources = {};
-      
-        var index = 0;
-        selectedDishes.forEach(function (dish){
-          dish.steps.forEach(function (step){
-            step.resources.forEach(function(resource){
-              if (!resources.hasOwnProperty(resource)){
-                resources[resource] = index++;
-              }
-            });
-          });
-        });
-            
+       var s = schedule.create(tasks, kitchen.getResourcesWithIdForDish(selectedDishes), null, new Date());
+                  
         // create a data set with groups
-        var names = Object.keys(resources);
-        var groupCount = names.length;
+        var resourceIndex = {};
+        var groupCount = resources.length;
         var groups = new vis.DataSet();
         for (var g = 0; g < groupCount; g++) {
-          groups.add({id: g, content: names[g]});
+          groups.add({id: g, content: resources[g]});
+          resourceIndex[resources[g]] = g;
         }
       
         // create a dataset with items
@@ -76,8 +71,9 @@ var app = new Vue({
             var st = s.scheduledTasks[taskIndex];            
             var start = moment(st.earlyStart, 'x');
             var end = moment(st.earlyFinish, 'x');
-            step.resources.forEach(function (resource){
-              var group = resources[resource];
+            var schedule = st.schedule;
+            st.schedule[0].resources.forEach(function (resource){
+              var group = resourceIndex[resource];
               var itemColor = color(dishIndex);
               items.add({
                 id: itemIndex++,

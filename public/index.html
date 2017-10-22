@@ -29,6 +29,20 @@
   <body>
     <h1>Dandory Kitchen</h1>
     <div id="app">
+      <form>
+        <label>料理人</label>
+        <input type="number" min="1" max="5" v-model="human">
+        <label>コンロ</label>
+        <input type="number" min="2" max="5" v-model="stove">
+        <label>電子レンジ</label>
+        <input type="number" min="1" max="5" v-model="microwave">
+        <label>オーブン</label>
+        <input type="number" min="1" max="5" v-model="oven">
+        <label>グリル</label>
+        <input type="number" min="1" max="5" v-model="grill">
+        <label>作業台</label>
+        <input type="number" min="1" max="5" v-model="counter">
+      </form>
       <div v-for="menu,index in menus">
         <label>{{ menu.name }}</label>
         <input type="checkbox" :value="index" v-model="selectedIndex">
@@ -38,6 +52,7 @@
       <button v-on:click="start">スタート</button>
     </div>    
     <div id="visualization"></div>
+    <script src="js/kitchen.js"></script>
     <script src="js/dish.js"></script>
     <script src="js/dandory.js"></script>
     <script src="js/app.js"></script>
