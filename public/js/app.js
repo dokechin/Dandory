@@ -11,7 +11,8 @@ var app = new Vue({
       counter : 1,
       menus : dishes,
       selectedIndex : [],
-      timeline : null
+      timeline : null,
+      cookingTime : null
     },
     created : function(){
       var container = document.getElementById('visualization');
@@ -42,15 +43,18 @@ var app = new Vue({
         var selectedDishes = [];
         for(var i=0;i<this.selectedIndex.length;i++){
           selectedDishes.push(dishes[this.selectedIndex[i]]);
-       }
+        }
 
-       var kitchen = new Kitchen(this.human, this.stove, this.microwave, this.oven, this.grill, this.counter);
+        var kitchen = new Kitchen(this.human, this.stove, this.microwave, this.oven, this.grill, this.counter);
 
-       var tasks = kitchen.getTasksForDish(selectedDishes);
-       var resources = kitchen.getResourcesForDish(selectedDishes);
-       now = moment().milliseconds(0);
-       var s = schedule.create(tasks, kitchen.getResourcesWithIdForDish(selectedDishes), null, new Date());
-                  
+        var tasks = kitchen.getTasksForDish(selectedDishes);
+        var resources = kitchen.getResourcesForDish(selectedDishes);
+        now = moment().milliseconds(0);
+        var s = schedule.create(tasks, kitchen.getResourcesWithIdForDish(selectedDishes), null, new Date());
+        
+        // cooking minutes
+        this.cookingTime = (s.end - s.start) / (1000 * 60);
+
         // create a data set with groups
         var resourceIndex = {};
         var groupCount = resources.length;
