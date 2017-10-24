@@ -12,7 +12,8 @@ var app = new Vue({
       menus : dishes,
       selectedIndex : [],
       timeline : null,
-      cookingTime : null
+      cookingTime : null,
+      endingTime: null
     },
     created : function(){
       var container = document.getElementById('visualization');
@@ -54,6 +55,7 @@ var app = new Vue({
         
         // cooking minutes
         this.cookingTime = (s.end - s.start) / (1000 * 60);
+        this.endingTime = moment(s.end).format('HH:mm:ss');
 
         // create a data set with groups
         var resourceIndex = {};
