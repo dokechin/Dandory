@@ -13,7 +13,8 @@ var app = new Vue({
       selectedIndex : [],
       timeline : null,
       cookingTime : null,
-      endingTime: null
+      endingTime: null,
+      selectedDishes: []
     },
     created : function(){
       var container = document.getElementById('visualization');
@@ -40,18 +41,22 @@ var app = new Vue({
         this.timeline.redraw();
       },
       renderTimeline : function(){
-
-        var selectedDishes = [];
+        
+        this.selectedDishes = [];
+        var color = d3.scaleOrdinal(d3.schemeCategory10);
+        
         for(var i=0;i<this.selectedIndex.length;i++){
-          selectedDishes.push(dishes[this.selectedIndex[i]]);
+          var dish = JSON.parse(JSON.stringify(dishes[this.selectedIndex[i]]));
+          dish['style'] = {color : color(i)};
+          this.selectedDishes.push(dish);
         }
 
         var kitchen = new Kitchen(this.human, this.stove, this.microwave, this.oven, this.grill, this.counter);
 
-        var tasks = kitchen.getTasksForDish(selectedDishes);
-        var resources = kitchen.getResourcesForDish(selectedDishes);
+        var tasks = kitchen.getTasksForDish(this.selectedDishes);
+        var resources = kitchen.getResourcesForDish(this.selectedDishes);
         now = moment().milliseconds(0);
-        var s = schedule.create(tasks, kitchen.getResourcesWithIdForDish(selectedDishes), null, new Date());
+        var s = schedule.create(tasks, kitchen.getResourcesWithIdForDish(this.selectedDishes), null, new Date());
         
         // cooking minutes
         this.cookingTime = (s.end - s.start) / (1000 * 60);
@@ -70,9 +75,8 @@ var app = new Vue({
         this.items = new vis.DataSet();
         var items = this.items;
         var itemIndex = 0;
-        var color = d3.scaleOrdinal(d3.schemeCategory10);
         var taskIndex = 0;
-        selectedDishes.forEach(function (dish,dishIndex){
+        this.selectedDishes.forEach(function (dish,dishIndex){
           dish.steps.forEach(function (step){
             var st = s.scheduledTasks[taskIndex];            
             var start = moment(st.earlyStart, 'x');
@@ -81,6 +85,7 @@ var app = new Vue({
             st.schedule[0].resources.forEach(function (resource){
               var group = resourceIndex[resource];
               var itemColor = color(dishIndex);
+              
               items.add({
                 id: itemIndex++,
                 group: group,

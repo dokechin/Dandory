@@ -51,8 +51,12 @@
       <br>
       <button v-on:click="start">スタート</button>
       <div>調理時間{{ cookingTime }}分 終了時刻{{ endingTime}}</div>
+      <br>
+      <div v-for="dish,index in selectedDishes">
+        <label><span v-bind:style="dish.style">■</span>{{ dish.name }}</label>
+      </div>
     </div>
-    <div id="visualization"></div>
+    <div id="visualization"></div>          
     <script src="js/kitchen.js"></script>
     <script src="js/dish.js"></script>
     <script src="js/dandory.js"></script>
