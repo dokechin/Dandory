@@ -12,27 +12,27 @@ class Kitchen {
 
 		this.human = new Array();
 		for (var i= 0;i<this.countHuman;i++){
-			this.human.push("料理人" + i);
+			this.human.push("料理人" + (i + 1));
 		}
 		this.stove = new Array();
 		for (var i=0;i<this.countStove;i++){
-			this.stove.push("コンロ" + i);
+			this.stove.push("コンロ" + (i + 1));
 		}
 		this.microwave = new Array();
 		for (var i= 0;i<this.countMicrowave;i++){
-			this.microwave.push("電子レンジ" + i);
+			this.microwave.push("電子レンジ" + (i + 1));
 		}
 		this.oven = new Array();
 		for (var i= 0;i<this.countOven;i++){
-			this.oven.push("オーブン" + i);
+			this.oven.push("オーブン" + (i + 1));
 		}
 		this.grill = new Array();
 		for (var i= 0;i<this.countGrill;i++){
-			this.grill.push("グリル" + i);
+			this.grill.push("グリル" + (i + 1));
 		}
 		this.counter = new Array();
 		for (var i= 0;i<this.countCounter;i++){
-			this.counter.push("作業台" + i);
+			this.counter.push("作業台" + (i + 1));
 		}
 		this.refrigerator = ["冷蔵庫"];
 	
