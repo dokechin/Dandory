@@ -87,7 +87,7 @@ class Kitchen {
 						dependsOn.push(depend + lastIndex);
 					});
 				}
-				tasks.push({id : index, duration : step.duration, dependsOn : dependsOn, resources : that.mappingKitchenResource(step.resources)});
+				tasks.push({id : index, duration : step.duration, minSchedule: step.duration, dependsOn : dependsOn, resources : that.mappingKitchenResource(step.resources)});
 				index++;
 		  });
 		  lastIndex = index;
