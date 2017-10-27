@@ -12,29 +12,29 @@ class Kitchen {
 
 		this.human = new Array();
 		for (var i= 0;i<this.countHuman;i++){
-			this.human.push("料理人" + (i + 1));
+			this.human.push({ name : "料理人" + (i + 1), order : (100 + i + 1 )});
 		}
 		this.stove = new Array();
 		for (var i=0;i<this.countStove;i++){
-			this.stove.push("コンロ" + (i + 1));
+			this.stove.push({ name : "コンロ" + (i + 1), order : (200 + i + 1)});
 		}
 		this.microwave = new Array();
 		for (var i= 0;i<this.countMicrowave;i++){
-			this.microwave.push("電子レンジ" + (i + 1));
+			this.microwave.push({ name : "電子レンジ" + (i + 1), order : (300 + i + 1)});
 		}
 		this.oven = new Array();
 		for (var i= 0;i<this.countOven;i++){
-			this.oven.push("オーブン" + (i + 1));
+			this.oven.push({ name : "オーブン" + (i + 1), order : (400 + i + 1)});
 		}
 		this.grill = new Array();
 		for (var i= 0;i<this.countGrill;i++){
-			this.grill.push("グリル" + (i + 1));
+			this.grill.push({ name : "グリル" + (i + 1), order : (500 + i + 1)});
 		}
 		this.counter = new Array();
 		for (var i= 0;i<this.countCounter;i++){
-			this.counter.push("作業台" + (i + 1));
+			this.counter.push( { name : "作業台" + (i + 1), order : (600 + i + 1)});
 		}
-		this.refrigerator = ["冷蔵庫"];
+		this.refrigerator = [{name : "冷蔵庫", order : 701}];
 	
 		this.resourceHash["料理人"] =  this.human;
 		this.resourceHash["コンロ"] =  this.stove;
@@ -46,15 +46,20 @@ class Kitchen {
 		
 		this.resources = this.human.concat(this.range).concat(this.microwave).concat(this.oven).concat(this.grill).concat(this.board).concat(this.refrigerator);
 	
-		this.resourcesWithId = new Array();
 		this.resourcesIndex = {};
-		var resourcesWithId = this.resourcesWithId;
 		var resourcesIndex = this.resourcesIndex;
 		var index = 0;
 		this.resources.forEach(function(resource){
-			resourcesWithId.push({id : resource});
 			resourcesIndex[resource] = index++;
 		});
+	}
+
+	getResourceNames(name){
+		var resources = new Array();
+		this.resourceHash[name].forEach(function(res){
+			resources.push(res.name);
+		});
+		return resources;
 	}
 
 	getResource(name){
@@ -69,7 +74,7 @@ class Kitchen {
 			if (resource == '冷蔵庫'){
 				isNotReservable = true;
 			}
-			kitchenResourcesWithId.push({id : resource, isNotReservable : isNotReservable});
+			kitchenResourcesWithId.push({id : resource.name, isNotReservable : isNotReservable});
 		});
 		return kitchenResourcesWithId;
 	}
@@ -124,7 +129,7 @@ class Kitchen {
 		var that = this;
 		var kitchenResources = new Array();
 		resources.forEach(function (resource){
-			kitchenResources.push(that.getResource(resource));
+			kitchenResources.push(that.getResourceNames(resource));
 		});
 		return kitchenResources;
 	}

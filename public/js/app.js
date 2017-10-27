@@ -55,8 +55,9 @@ var app = new Vue({
 
         var tasks = kitchen.getTasksForDish(this.selectedDishes);
         var resources = kitchen.getResourcesForDish(this.selectedDishes);
+        var resourcesWithId = kitchen.getResourcesWithIdForDish(this.selectedDishes);
         now = moment().milliseconds(0);
-        var s = schedule.create(tasks, kitchen.getResourcesWithIdForDish(this.selectedDishes), null, new Date());
+        var s = schedule.create(tasks, resourcesWithId, null, new Date());
         
         // cooking minutes
         this.cookingTime = (s.end - s.start) / (1000 * 60);
@@ -67,8 +68,8 @@ var app = new Vue({
         var groupCount = resources.length;
         var groups = new vis.DataSet();
         for (var g = 0; g < groupCount; g++) {
-          groups.add({id: g, content: resources[g]});
-          resourceIndex[resources[g]] = g;
+          groups.add({id: g, content: resources[g].name, order : resources[g].order});
+          resourceIndex[resources[g].name] = g;
         }
       
         // create a dataset with items
@@ -103,7 +104,6 @@ var app = new Vue({
       
         // create visualization
         var options = {
-          groupOrder: 'content',
           showCurrentTime: false,
           editable: {
             add: false,         // add new items by double tapping
