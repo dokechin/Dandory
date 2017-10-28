@@ -53,12 +53,29 @@ var app = new Vue({
 
         var kitchen = new Kitchen(this.human, this.stove, this.microwave, this.oven, this.grill, this.counter);
 
-        var tasks = kitchen.getTasksForDish(this.selectedDishes);
-        var resources = kitchen.getResourcesForDish(this.selectedDishes);
-        var resourcesWithId = kitchen.getResourcesWithIdForDish(this.selectedDishes);
+        // Task total time depends on dish order. 
+        var permutationDishes = this.selectedDishes.permutation(this.selectedDishes.length);
+
+        var bestIndex = 0;
+        var minTime = -1;
+        permutationDishes.forEach( function (dishes, index){
+          var tasks = kitchen.getTasksForDish(dishes);
+          var resources = kitchen.getResourcesForDish(dishes);
+          var resourcesWithId = kitchen.getResourcesWithIdForDish(dishes);
+          now = moment().milliseconds(0);
+          var s = schedule.create(tasks, resourcesWithId, null, new Date());
+          if (minTime == -1 || s.end - s.start < minTime){
+            minTime = s.end - s.start;
+            bestIndex = index;
+          }
+        });
+ 
+        var tasks = kitchen.getTasksForDish(permutationDishes[bestIndex]);
+        var resources = kitchen.getResourcesForDish(permutationDishes[bestIndex]);
+        var resourcesWithId = kitchen.getResourcesWithIdForDish(permutationDishes[bestIndex]);
         now = moment().milliseconds(0);
         var s = schedule.create(tasks, resourcesWithId, null, new Date());
-        
+    
         // cooking minutes
         this.cookingTime = (s.end - s.start) / (1000 * 60);
         this.endingTime = moment(s.end).format('HH:mm:ss');
@@ -77,7 +94,7 @@ var app = new Vue({
         var items = this.items;
         var itemIndex = 0;
         var taskIndex = 0;
-        this.selectedDishes.forEach(function (dish,dishIndex){
+        permutationDishes[bestIndex].forEach(function (dish,dishIndex){
           dish.steps.forEach(function (step){
             var st = s.scheduledTasks[taskIndex];            
             var start = moment(st.earlyStart, 'x');

@@ -23,4 +23,4 @@ var dish1 = {
 	  {name : 'カレールーを溶かす', dependsOn : [2], duration : 5, content : '火を止めてから、カレールーを入れます', resources : ['料理人','コンロ']}
   ]};
     
-  var dishes = [dish1, dish2,dish3];
+  var dishes = [dish1, dish2, dish3];
