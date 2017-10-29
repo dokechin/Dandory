@@ -78,9 +78,13 @@ var app = new Vue({
         var s = schedule.create(tasks, resourcesWithId, null, new Date());
     
         // cooking minutes
-        if (s.scheduledTasks){
+        if (s.start){
           this.cookingTime = (s.end - s.start) / (1000 * 60);
           this.endingTime = moment(s.end).format('HH:mm:ss');
+        }
+        else{
+          this.cookingTime = 0;
+          this.endingTime = null;          
         }
 
         // create a data set with groups
