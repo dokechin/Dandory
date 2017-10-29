@@ -12,7 +12,7 @@ var app = new Vue({
       menus : dishes,
       selectedIndex : [],
       timeline : null,
-      cookingTime : null,
+      cookingTime : 0,
       endingTime: null,
       selectedDishes: []
     },
@@ -77,8 +77,10 @@ var app = new Vue({
         var s = schedule.create(tasks, resourcesWithId, null, new Date());
     
         // cooking minutes
-        this.cookingTime = (s.end - s.start) / (1000 * 60);
-        this.endingTime = moment(s.end).format('HH:mm:ss');
+        if (s.scheduledTasks.length > 0){
+          this.cookingTime = (s.end - s.start) / (1000 * 60);
+          this.endingTime = moment(s.end).format('HH:mm:ss');
+        }
 
         // create a data set with groups
         var resourceIndex = {};
