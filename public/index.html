@@ -2,6 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Dandory Kitchen</title>
 
     <style>
@@ -18,7 +20,8 @@
     </style>
 
     <!-- note: moment.js must be loaded before vis.js, else vis.js uses its embedded version of moment.js -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css">    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.min.js"></script>
     <script src="vendor/js/vis.min.js"></script>
     <script src="vendor/js/later.min.js"></script>
@@ -28,38 +31,66 @@
     <link href="vendor/css/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <h1>Dandory Kitchen</h1>
-    <div id="app">
-      <form>
-        <label>料理人</label>
-        <input type="number" min="1" max="5" v-model="human">
-        <label>コンロ</label>
-        <input type="number" min="2" max="5" v-model="stove">
-        <label>電子レンジ</label>
-        <input type="number" min="1" max="5" v-model="microwave">
-        <label>オーブン</label>
-        <input type="number" min="1" max="5" v-model="oven">
-        <label>グリル</label>
-        <input type="number" min="1" max="5" v-model="grill">
-        <label>作業台</label>
-        <input type="number" min="1" max="5" v-model="counter">
-      </form>
-      <div v-for="menu,index in menus">
-        <label>{{ menu.name }}</label>
-        <input type="checkbox" :value="index" v-model="selectedIndex">
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Dandory Kitchen</h1>
+        <div id="app">
+          <div class="heading">
+            <h2 class="title">キッチン</h2>
+          </div>
+          <div class="field is-grouped">
+            <label class="label">料理人</label>
+            <input class="control" type="number" min="1" max="5" v-model="human">
+            <label class="label">コンロ</label>
+            <input class="control" type="number" min="2" max="5" v-model="stove">
+            <label class="label">電子レンジ</label>
+            <input class="control" type="number" min="1" max="5" v-model="microwave">
+            <label class="label">オーブン</label>
+            <input class="control" type="number" min="1" max="5" v-model="oven">
+            <label class="label">グリル</label>
+            <input class="control" type="number" min="1" max="5" v-model="grill">
+            <label class="label">作業台</label>
+            <input class="control" type="number" min="2" max="5" v-model="counter">
+          </div>
+          <div class="heading">
+            <h2 class="title">料理</h2>
+          </div>
+          <div class="field" v-for="menu,index in menus">
+            <label class="checkbox">
+              <input class="checkbox" type="checkbox" :value="index" v-model="selectedIndex">
+              {{ menu.name }}
+            </label>
+          </div>
+          <div class="heading">
+            <h2 class="title">人数</h2>
+          </div>  
+          <div class="field">
+            <input class="control" type="number" min="1" max="10" v-model="person">
+          </div>
+
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="button is-primary" v-on:click="renderTimeline">
+                  段取り表示
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-danger" v-on:click="start">
+                  タイマースタート
+              </a>
+            </p>
+          </div>
+          <div>調理時間{{ cookingTime }}分 終了時刻{{ endingTime}}</div>
+          <div v-for="dish,index in selectedDishes">
+            <label><span v-bind:style="dish.style">■</span>{{ dish.name }}</label>
+          </div>
+          </div>
+          <div id="visualization"></div>          
+          <script src="js/kitchen.js"></script>
+          <script src="js/dish.js"></script>
+          <script src="js/app.js"></script>
+        </div>
       </div>
-      <button v-on:click="renderTimeline">段取り表示</button>
-      <br>
-      <button v-on:click="start">スタート</button>
-      <div>調理時間{{ cookingTime }}分 終了時刻{{ endingTime}}</div>
-      <br>
-      <div v-for="dish,index in selectedDishes">
-        <label><span v-bind:style="dish.style">■</span>{{ dish.name }}</label>
-      </div>
-    </div>
-    <div id="visualization"></div>          
-    <script src="js/kitchen.js"></script>
-    <script src="js/dish.js"></script>
-    <script src="js/app.js"></script>
+    </section>
   </body>
 </html>

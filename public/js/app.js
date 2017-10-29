@@ -14,7 +14,8 @@ var app = new Vue({
       timeline : null,
       cookingTime : 0,
       endingTime: null,
-      selectedDishes: []
+      selectedDishes: [],
+      person: 4
     },
     created : function(){
       var container = document.getElementById('visualization');
@@ -77,7 +78,7 @@ var app = new Vue({
         var s = schedule.create(tasks, resourcesWithId, null, new Date());
     
         // cooking minutes
-        if (s.scheduledTasks.length > 0){
+        if (s.scheduledTasks){
           this.cookingTime = (s.end - s.start) / (1000 * 60);
           this.endingTime = moment(s.end).format('HH:mm:ss');
         }
