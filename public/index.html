@@ -27,6 +27,7 @@
     <script src="vendor/js/later.min.js"></script>
     <script src="vendor/js/schedule.min.js"></script>
     <script src="vendor/js/ArrayPermutation.js"></script>
+    <script src="vendor/js/math.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
     <link href="vendor/css/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
   </head>
@@ -86,14 +87,18 @@
               </a>
             </p>
           </div>
+          <div v-for="ingredientSum in ingredientSums">
+            <label>{{ ingredientSum.name }} {{ ingredientSum.total }} {{ ingredientSum.unit }}</label>
+          </div>
           <div>調理時間{{ cookingTime }}分 終了時刻{{ endingTime}}</div>
           <div v-for="dish,index in selectedDishes">
             <label><span v-bind:style="dish.style">■</span>{{ dish.name }}</label>
           </div>
-          </div>
-          <div id="visualization"></div>          
+        </div>
+        <div id="visualization"></div>          
           <script src="js/kitchen.js"></script>
           <script src="js/dish.js"></script>
+          <script src="js/ingredient.js"></script>
           <script src="js/app.js"></script>
         </div>
       </div>

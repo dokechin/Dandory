@@ -3,8 +3,8 @@ var dish1 = {
 	ingredients : [
 	  {name : 'さんま', amount : 1, unit : '匹'},		
 	  {name : '塩',    amount : 1, unit : '小さじ'},
-	  {name : 'すだち', amount : 1, unit : '適量', constant : true},
-	  {name : '大根おろし', amount : 1, unit : '適量', constant : true}
+	  {name : 'すだち', amount : "1/2", unit : '個'},
+	  {name : '大根', amount : 15, unit : 'グラム'}
 	],
 	steps : [
 	  {name : '塩をまぶす', duration : 0.5, content : '秋刀魚に塩をひとつまみ振ります', resources : ['料理人','作業台'], proportional : { b : 2 }},
@@ -15,11 +15,11 @@ var dish1 = {
   var dish2 = {
 	name : '味噌汁',
 	ingredients : [
-	  {name : 'みそ', amount : 16, unit : 'グラム'},
+	  {name : '味噌', amount : 16, unit : 'グラム'},
 	  {name : '水',    amount : 160, unit : 'cc'},
-	  {name : '豆腐', amount : 0.125, unit : '丁'},
+	  {name : '豆腐', amount : "1/8", unit : '丁'},
 	  {name : '乾燥わかめ', amount : 1, unit : 'グラム'},
-	  {name : '長ネギ', amount : 1, unit : '少々', counstnt : true}
+	  {name : '長ネギ', amount : 3, unit : 'グラム'}
 	],
 	steps : [
 	  {name : '野菜を切る', duration : 3, content : '一口サイズに野菜を切ります', resources : ['料理人','作業台']},
@@ -31,10 +31,10 @@ var dish1 = {
 	name : 'カレーライス',
 	ingredients : [
 	{name : '鶏もも肉', amount : 60, unit : 'グラム'},
-	{name : '玉ねぎ',    amount : "1/2", unit : '中'},
-	{name : 'サラダ油', amount : 1, unit : '大さじ', constant : true},
+	{name : '玉ねぎ',    amount : "1/2", unit : '個'},
+	{name : 'サラダ油', amount : 1, unit : '大さじ'},
 	{name : '水', amount : 150, unit : 'cc'},
-	{name : 'カレールウ', amount : 20, unit : 'グラム'},
+	{name : 'カレールー', amount : 20, unit : 'グラム'},
 	{name : '白飯', amount : 150, unit : 'グラム'}
 ],
 steps : [

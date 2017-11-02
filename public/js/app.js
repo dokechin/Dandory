@@ -15,7 +15,8 @@ var app = new Vue({
       cookingTime : 0,
       endingTime: null,
       selectedDishes: [],
-      person: 4
+      person: 4,
+      ingredientSums : []
     },
     created : function(){
       var container = document.getElementById('visualization');
@@ -51,6 +52,28 @@ var app = new Vue({
           dish['style'] = {color : color(i)};
           this.selectedDishes.push(dish);
         }
+
+        var ingredientSum = {};
+        var that = this;
+        this.selectedDishes.forEach(function(dish){
+          dish.ingredients.forEach(function(ingredient){
+            if(ingredientSum.hasOwnProperty(ingredient.name)){
+              ingredientSum[ingredient.name].addIngredient(ingredient.unit, ingredient.amount, that.person);
+            }
+            else{
+              var sum = new IngredientSummary(ingredient.name);
+              sum.addIngredient(ingredient.unit, ingredient.amount, that.person);
+              ingredientSum[ingredient.name] = sum;
+            }
+          });
+        });
+        this.ingredientSums = new Array();
+        for( prop in ingredientSum){
+          this.ingredientSums.push(ingredientSum[prop]);
+        }
+        this.ingredientSums.sort(function(a,b){
+          return a.id - b.id;
+        });
 
         var kitchen = new Kitchen(this.human, this.stove, this.microwave, this.oven, this.grill, this.counter);
 
