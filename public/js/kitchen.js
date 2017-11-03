@@ -79,7 +79,7 @@ class Kitchen {
 		return kitchenResourcesWithId;
 	}
 
-	getTasksForDish(dishes){
+	getTasksForDish(dishes, person){
 		var tasks = new Array();
 		var index = 0;
 		var lastIndex = 0;
@@ -92,7 +92,20 @@ class Kitchen {
 						dependsOn.push(depend + lastIndex);
 					});
 				}
-				tasks.push({id : index, duration : step.duration, minSchedule: step.duration, dependsOn : dependsOn, resources : that.mappingKitchenResource(step.resources)});
+				var duration = 0;
+				if (step.hasOwnProperty('constant')){
+					duration = step.duration;
+				}
+				else{
+					var b = 0;
+					if(step.hasOwnProperty('proportional')){
+						if (step.proportional.hasOwnProperty('b')){
+							b = step.proportional.b;
+						}
+					}
+					duration = step.duration * person + b;
+				}
+				tasks.push({id : index, duration : duration, minSchedule: step.duration, dependsOn : dependsOn, resources : that.mappingKitchenResource(step.resources)});
 				index++;
 		  });
 		  lastIndex = index;

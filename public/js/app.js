@@ -84,7 +84,7 @@ var app = new Vue({
         var bestIndex = 0;
         var minTime = -1;
         permutationDishes.forEach( function (dishes, index){
-          var tasks = kitchen.getTasksForDish(dishes);
+          var tasks = kitchen.getTasksForDish(dishes, that.person);
           var resources = kitchen.getResourcesForDish(dishes);
           var resourcesWithId = kitchen.getResourcesWithIdForDish(dishes);
           now = moment().milliseconds(0);
@@ -95,7 +95,7 @@ var app = new Vue({
           }
         });
  
-        var tasks = kitchen.getTasksForDish(permutationDishes[bestIndex]);
+        var tasks = kitchen.getTasksForDish(permutationDishes[bestIndex], that.person);
         var resources = kitchen.getResourcesForDish(permutationDishes[bestIndex]);
         var resourcesWithId = kitchen.getResourcesWithIdForDish(permutationDishes[bestIndex]);
         now = moment().milliseconds(0);
