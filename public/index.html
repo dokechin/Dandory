@@ -17,6 +17,15 @@
         width: 100%;
         height: 300px;
       }
+
+      .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s
+      }
+
+      .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0
+      }
+
     </style>
 
     <!-- note: moment.js must be loaded before vis.js, else vis.js uses its embedded version of moment.js -->
@@ -75,9 +84,17 @@
                   <span class="icon is-medium">
                       <i class="fa fa-2x fa-tasks"></i>
                   </span>
-                &nbsp;&nbsp;&nbsp;&nbsp;段取り表示
+                &nbsp;&nbsp;&nbsp;&nbsp;材料段取り更新
               </a>
             </p>
+            <p class="control">
+                <a class="button is-info" v-on:click="show = !show">
+                    <span class="icon is-medium">
+                        <i class="fa fa-2x fa-shopping-bag"></i>
+                    </span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{{ show? "材料非表示" : "材料表示"　}}
+                </a>
+            </p>  
             <p class="control">
               <a class="button is-danger" v-on:click="start">
                   <span class="icon is-medium">
@@ -87,8 +104,14 @@
               </a>
             </p>
           </div>
-          <div v-for="ingredientSum in ingredientSums">
-            <label>{{ ingredientSum.name }} {{ ingredientSum.total }} {{ ingredientSum.unit }}</label>
+          <div id="sum">
+            <transition name="fade">
+              <div v-if="show">
+                <div v-for="ingredientSum in ingredientSums">
+                  <label>{{ ingredientSum.name }} {{ ingredientSum.total }} {{ ingredientSum.unit }}</label>
+                </div>
+              </div>
+            </transition>
           </div>
           <div>調理時間{{ cookingTime }}分 終了時刻{{ endingTime}}</div>
           <div v-for="dish,index in selectedDishes">

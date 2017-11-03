@@ -16,6 +16,7 @@ var app = new Vue({
       endingTime: null,
       selectedDishes: [],
       person: 4,
+      show : false,
       ingredientSums : []
     },
     created : function(){
