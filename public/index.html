@@ -92,7 +92,7 @@
                     <span class="icon is-medium">
                         <i class="fa fa-2x fa-shopping-bag"></i>
                     </span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;{{ show? "材料非表示" : "材料表示"　}}
+                    &nbsp;&nbsp;&nbsp;&nbsp;{{ show? "準備食材非表示" : "準備食材表示"　}}
                 </a>
             </p>  
             <p class="control">
@@ -113,10 +113,25 @@
               </div>
             </transition>
           </div>
+          <aside class="menu">
+          <ul class="menu-list">
+            <li v-for="dish,index in selectedDishes" v-on:click="dish.show = !dish.show"><a><span v-bind:style="dish.style">■</span>{{ dish.name }}</a>
+              <ul v-if="dish.show">
+                <li>材料
+                  <ol>
+                    <li v-for="ingredient in dish.ingredients">{{ ingredient.name }} {{ ingredient.amount }} {{ ingredient.unit }}</li>
+                  </ol>
+                </li>
+                <li>手順
+                  <ol>
+                    <li v-for="step,index in dish.steps">{{ step.content }}</li>
+                  </ol>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          </aside>
           <div>調理時間{{ cookingTime }}分 終了時刻{{ endingTime}}</div>
-          <div v-for="dish,index in selectedDishes">
-            <label><span v-bind:style="dish.style">■</span>{{ dish.name }}</label>
-          </div>
         </div>
         <div id="visualization"></div>          
           <script src="js/kitchen.js"></script>

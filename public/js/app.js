@@ -51,6 +51,7 @@ var app = new Vue({
         for(var i=0;i<this.selectedIndex.length;i++){
           var dish = JSON.parse(JSON.stringify(dishes[this.selectedIndex[i]]));
           dish['style'] = {color : color(i)};
+          dish['show'] = false;
           this.selectedDishes.push(dish);
         }
 
