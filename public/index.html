@@ -113,21 +113,19 @@
               </div>
             </transition>
           </div>
-            <article class="message is-primary" v-for="dish,index in selectedDishes" v-on:click="dish.show = !dish.show">
-              <div class="message-header"><p><span v-bind:style="dish.style">■</span>{{ dish.name }}</p></div>
-              <div class="message-body" v-if="dish.show">
-                <label>材料<label>
-                  <ol>
-                    <li v-for="ingredient in dish.ingredients">{{ ingredient.name }} {{ ingredient.amount }} {{ ingredient.unit }}</li>
-                  </ol>
-                </li>
-                <label>手順</label>
-                  <ol>
-                    <li v-for="step,index in dish.steps">{{ step.content }}</li>
-                  </ol>
-                </li>
-              </div>
-            </article>
+          <article class="message is-primary" v-for="dish,index in selectedDishes" v-on:click="dish.show = !dish.show">
+            <div class="message-header"><p><span v-bind:style="dish.style">■</span>{{ dish.name }}</p></div>
+            <div class="message-body" v-if="dish.show">
+              <label>材料<label>
+                <ol>
+                  <li v-for="ingredient in dish.ingredients">{{ ingredient.name }} {{ ingredient.amount }} {{ ingredient.unit }}</li>
+                </ol>
+              <label>手順</label>
+                <ol>
+                  <li v-for="step,index in dish.steps">{{ step.content }}</li>
+                </ol>
+            </div>
+          </article>
           <div>調理時間{{ cookingTime }}分 終了時刻{{ endingTime}}</div>
         </div>
         <div id="visualization"></div>          
