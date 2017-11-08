@@ -1,5 +1,30 @@
 var now;
 
+function getHumanResourceName(resources){
+  var color = d3.scaleOrdinal(d3.schemeCategory10);
+  var col = d3.rgb("#ffffff");
+  for (var i=0;i<resources.length;i++){
+    if (resources[i].substring(0,3) == "料理人"){
+      var index = Number(resources[i].substr(3,1));
+      return resources[i];
+    } 
+  }
+  return "その他";
+}
+
+function getNonHumanResource(resources){
+  var nonHumanResources = new Array();
+  resources.forEach(function(resource){
+    if (resource.substring(0,3) != "料理人"){
+        nonHumanResources.push(resource);
+    } 
+  });
+  if (nonHumanResources.length > 0){
+    return "[" + nonHumanResources.join(",") + "]"; 
+  }
+  return "";
+}
+
 var app = new Vue({
     el: '#app',
     data: {
@@ -113,14 +138,30 @@ var app = new Vue({
         }
 
         // create a data set with groups
-        var resourceIndex = {};
-        var groupCount = resources.length;
+        var dishIndex = {};
+        var dishResourceIndex = {};
+        var groupCount = this.selectedDishes.length;
         var groups = new vis.DataSet();
         for (var g = 0; g < groupCount; g++) {
-          groups.add({id: g, content: resources[g].name, order : resources[g].order});
-          resourceIndex[resources[g].name] = g;
+
+          var cooks = kitchen.getResourceNames("料理人");
+          var nested = new Array();
+
+          dishResourceIndex[this.selectedDishes[g].name] = {};
+        
+          for (var i = 0 ;i<cooks.length;i++){
+            dishResourceIndex[this.selectedDishes[g].name][cooks[i]] =  ((g + 1) * 100 + i);
+            groups.add({id: ((g + 1) * 100 + i), content: cooks[i]});
+            nested.push(((g + 1) * 100 + i));
+          }
+          dishResourceIndex[this.selectedDishes[g].name]["その他"] =  ((g + 1) * 100 + cooks.length + 1);         
+          groups.add({id: ((g + 1) * 100 + cooks.length + 1), content: "その他"});
+          nested.push(((g + 1) * 100 + cooks.length + 1));
+
+          groups.add({id: g, content: this.selectedDishes[g].name, nestedGroups : nested});
+          dishIndex[this.selectedDishes[g].name] = g;
         }
-      
+        console.log(dishResourceIndex);
         // create a dataset with items
         this.items = new vis.DataSet();
         var items = this.items;
@@ -132,21 +173,21 @@ var app = new Vue({
             var start = moment(st.earlyStart, 'x');
             var end = moment(st.earlyFinish, 'x');
             var schedule = st.schedule;
-            st.schedule[0].resources.forEach(function (resource){
-              var group = resourceIndex[resource];
-              var itemColor = color(dishIndex);
-              
-              items.add({
-                id: itemIndex++,
-                group: group,
-                title: step.content,
-                content: step.name,
-                start: start,
-                end: end,
-                type: 'range',
-                style: "background-color: " + itemColor + ";"
-              });
+            var humanResourceName = getHumanResourceName(st.schedule[0].resources);
+            var nonHumanResource = getNonHumanResource(st.schedule[0].resources);
+            
+            items.add({
+              id: itemIndex++,
+              group: dishResourceIndex[dish.name][humanResourceName],
+              title: step.content,
+              content: step.name　+ nonHumanResource,
+              start: start,
+              end: end,
+              type: 'range'
             });
+
+            //              style: "background-color: " + itemColor + ";"
+
             taskIndex++;
           });
         });
