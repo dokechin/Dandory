@@ -8,8 +8,9 @@ var dish1 = {
 	],
 	steps : [
 	  {name : '塩をまぶす', duration : 0.5, content : '秋刀魚に塩をひとつまみ振ります', resources : ['料理人','作業台'], proportional : { b : 2 }},
+	  {name : '大根をおろす', duration : 0.5, content : '大根おろします', resources : ['料理人','作業台'], proportional : { b : 2 }},
 	  {name : '染み込ませる', dependsOn : [0], duration : 15, content : '冷蔵庫で十五分塩を染み込ませます', resources : ["冷蔵庫"], constant : true},
-	  {name : '焼く', dependsOn : [1], duration : 7, content : 'グリルで中火で焼きます' , resources : ['グリル'], constant : true}
+	  {name : '焼く', dependsOn : [2], duration : 7, content : 'グリルで中火で焼きます' , resources : ['グリル'], constant : true}
   ]};
   
   var dish2 = {

@@ -125,7 +125,13 @@ var app = new Vue({
         var resources = kitchen.getResourcesForDish(permutationDishes[bestIndex]);
         var resourcesWithId = kitchen.getResourcesWithIdForDish(permutationDishes[bestIndex]);
         now = moment().milliseconds(0);
+
+        console.log(tasks);
+        console.log(resourcesWithId);
+
         var s = schedule.create(tasks, resourcesWithId, null, new Date());
+
+        console.log(s);
     
         // cooking minutes
         if (s.start){
@@ -172,6 +178,7 @@ var app = new Vue({
             var st = s.scheduledTasks[taskIndex];            
             var start = moment(st.earlyStart, 'x');
             var end = moment(st.earlyFinish, 'x');
+            console.log(step.name + "start" + start.format() + "end" + end.format());
             var schedule = st.schedule;
             var humanResourceName = getHumanResourceName(st.schedule[0].resources);
             var nonHumanResource = getNonHumanResource(st.schedule[0].resources);

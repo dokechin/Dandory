@@ -105,7 +105,7 @@ class Kitchen {
 					}
 					duration = step.duration * person + b;
 				}
-				tasks.push({id : index, duration : duration, minLength: duration, dependsOn : dependsOn, resources : that.mappingKitchenResource(step.resources)});
+				tasks.push({id : index, duration : duration, minSchedule: duration, dependsOn : dependsOn, resources : that.mappingKitchenResource(step.resources)});
 				index++;
 		  });
 		  lastIndex = index;

@@ -50,100 +50,169 @@
     <link href="vendor/css/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <section class="section">
-      <div class="container">
-        <h1 class="title">Dandory Kitchen</h1>
-        <div id="app">
-          <div class="heading">
-            <h2 class="title">キッチン</h2>
+    <div id="app">          
+      <section class="hero">
+        <div class="hero-body" style="background-image : url(img/673502_new.png)">
+          <div class="container">
+            <h1 class="title">
+                <img src="img/title_pink.png" width="320" height="256" alt="Dandory Kitchen"></img>
+                <img src="img/line_ashiato07_bird.png" style="margin : 0px 0px 30px" width="480" height="256"></img>
+                <img src="img/logo_shirofuchi.png" align="top" width="128" height="128"></img>
+              </h1>
           </div>
-          <div class="field is-grouped">
-            <label class="label">料理人</label>
-            <input class="control" type="number" min="1" max="5" v-model="human">
-            <label class="label">コンロ</label>
-            <input class="control" type="number" min="2" max="5" v-model="stove">
-            <label class="label">電子レンジ</label>
-            <input class="control" type="number" min="1" max="5" v-model="microwave">
-            <label class="label">オーブン</label>
-            <input class="control" type="number" min="1" max="5" v-model="oven">
-            <label class="label">グリル</label>
-            <input class="control" type="number" min="1" max="5" v-model="grill">
-            <label class="label">作業台</label>
-            <input class="control" type="number" min="2" max="5" v-model="counter">
-          </div>
-          <div class="heading">
-            <h2 class="title">料理</h2>
-          </div>
-          <div class="field" v-for="menu,index in menus">
-            <label class="checkbox">
-              <input class="checkbox" type="checkbox" :value="index" v-model="selectedIndex">
-              {{ menu.name }}
-            </label>
-          </div>
-          <div class="heading">
-            <h2 class="title">人数</h2>
-          </div>  
-          <div class="field">
-            <input class="control" type="number" min="1" max="10" v-model="person">
-          </div>
-
-          <div class="field is-grouped">
-            <p class="control">
-              <a class="button is-primary" v-on:click="renderTimeline">
-                  <span class="icon is-medium">
-                      <i class="fa fa-2x fa-tasks"></i>
-                  </span>
-                &nbsp;&nbsp;&nbsp;&nbsp;材料段取り更新
-              </a>
-            </p>
-            <p class="control">
-                <a class="button is-info" v-on:click="show = !show">
-                    <span class="icon is-medium">
-                        <i class="fa fa-2x fa-shopping-bag"></i>
-                    </span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;{{ show? "準備食材非表示" : "準備食材表示"　}}
-                </a>
-            </p>  
-            <p class="control">
-              <a class="button is-danger" v-on:click="start">
-                  <span class="icon is-medium">
-                      <i class="fa fa-2x fa-clock-o"></i>
-                  </span>
-                  &nbsp;&nbsp;&nbsp;&nbsp;タイマースタート
-              </a>
-            </p>
-          </div>
-          <div id="sum">
-            <transition name="fade">
-              <div v-if="show">
-                <div v-for="ingredientSum in ingredientSums">
-                  <label>{{ ingredientSum.name }} {{ ingredientSum.total }} {{ ingredientSum.unit }}</label>
+          <div class="columns">
+            <div class="column">
+              <div class="columns">
+                <div class="column">
+                  <figure class="image is-64x64">
+                    <img src="img/cooking_oyako_man_girl.png"></img>
+                  </figure>
+                </div>
+                <div class="column">
+                  <label class="label">料理人</label>
+                    <input class="control" type="number" min="1" max="5" v-model="human">
                 </div>
               </div>
-            </transition>
-          </div>
-          <article class="message is-primary" v-for="dish,index in selectedDishes" v-on:click="dish.show = !dish.show">
-            <div class="message-header"><p><span v-bind:style="dish.style">■</span>{{ dish.name }}</p></div>
-            <div class="message-body" v-if="dish.show">
-              <label>材料<label>
-                <ol>
-                  <li v-for="ingredient in dish.ingredients">{{ ingredient.name }} {{ ingredient.amount }} {{ ingredient.unit }}</li>
-                </ol>
-              <label>手順</label>
-                <ol>
-                  <li v-for="step,index in dish.steps">{{ step.content }}</li>
-                </ol>
             </div>
-          </article>
-          <div>調理時間{{ cookingTime }}分 終了時刻{{ endingTime}}</div>
+            <div class="column">
+              <div class="columns">
+                <div class="column">
+                  <figure class="image is-64x64">
+                    <img src="img/gas_konro.png"></img>
+                  </figure>
+                </div>
+                <div class="column">
+                  <label class="label">コンロ</label>
+                    <input class="control" type="number" min="1" max="5" v-model="stove">
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="columns">
+                <div class="column">
+                  <figure class="image is-64x64">
+                    <img src="img/cooking_microwave.png"></img>
+                  </figure>
+                </div>
+                <div class="column">
+                  <label class="label">電子レンジ</label>
+                  <input class="control" type="number" min="1" max="5" v-model="microwave">
+                </div>
+              </div>
+            </div>
+            <div class="column">
+                <div class="columns">
+                  <div class="column">
+                    <figure class="image is-64x64">
+                      <img src="img/oven_toaster.png"></img>
+                    </figure>
+                </div>
+                <div class="column">
+                  <label class="label">オーブン</label>
+                  <input class="control" type="number" min="1" max="5" v-model="oven">
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="columns">
+                <div class="column">
+                  <figure class="image is-64x64">
+                    <img src="img/cooking01_yaku.png"></img>
+                  </figure>
+                </div>
+                <div class="column">
+                  <label class="label">グリル</label>
+                  <input class="control" type="number" min="1" max="5" v-model="grill">
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="columns">
+                <div class="column">
+                  <figure class="image is-64x64">
+                    <img src="img/cooking_manaita.png"></img>
+                  </figure>
+                </div>
+                <div class="column">
+                  <label class="label">作業台</label>
+                  <input class="control" type="number" min="1" max="5" v-model="counter">
+                </div>
+              </div>
+            </div>
+          </div>      
         </div>
-        <div id="visualization"></div>          
-          <script src="js/kitchen.js"></script>
-          <script src="js/dish.js"></script>
-          <script src="js/ingredient.js"></script>
-          <script src="js/app.js"></script>
-        </div>
+      </section>
+      <div class="heading">
+        <h2 class="title">料理</h2>
       </div>
-    </section>
+      <div class="field" v-for="menu,index in menus">
+        <label class="checkbox">
+          <input class="checkbox" type="checkbox" :value="index" v-model="selectedIndex">
+          {{ menu.name }}
+        </label>
+      </div>
+      <div class="heading">
+        <h2 class="title">人数</h2>
+      </div>  
+      <div class="field">
+        <input class="control" type="number" min="1" max="10" v-model="person">
+      </div>
+
+      <div class="field is-grouped">
+        <p class="control">
+          <a class="button is-primary" v-on:click="renderTimeline">
+            <span class="icon is-medium">
+              <i class="fa fa-2x fa-tasks"></i>
+            </span>
+              &nbsp;&nbsp;&nbsp;&nbsp;材料段取り更新
+          </a>
+        </p>
+        <p class="control">
+          <a class="button is-info" v-on:click="show = !show">
+            <span class="icon is-medium">
+              <i class="fa fa-2x fa-shopping-bag"></i>
+            </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;{{ show? "準備食材非表示" : "準備食材表示"　}}
+          </a>
+        </p>  
+        <p class="control">
+          <a class="button is-danger" v-on:click="start">
+            <span class="icon is-medium">
+              <i class="fa fa-2x fa-clock-o"></i>
+            </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;タイマースタート
+          </a>
+        </p>
+      </div>
+      <div id="sum">
+        <transition name="fade">
+          <div v-if="show">
+            <div v-for="ingredientSum in ingredientSums">
+              <label>{{ ingredientSum.name }} {{ ingredientSum.total }} {{ ingredientSum.unit }}</label>
+            </div>
+          </div>
+        </transition>
+      </div>
+      <article class="message is-primary" v-for="dish,index in selectedDishes" v-on:click="dish.show = !dish.show">
+        <div class="message-header"><p><span v-bind:style="dish.style">■</span>{{ dish.name }}</p></div>
+        <div class="message-body" v-if="dish.show">
+          <label>材料<label>
+            <ol>
+              <li v-for="ingredient in dish.ingredients">{{ ingredient.name }} {{ ingredient.amount }} {{ ingredient.unit }}</li>
+            </ol>
+          <label>手順</label>
+            <ol>
+              <li v-for="step,index in dish.steps">{{ step.content }}</li>
+            </ol>
+        </div>
+      </article>
+      <div>調理時間{{ cookingTime }}分 終了時刻{{ endingTime}}</div>
+    </div>
+    <div id="visualization"></div>          
+      <script src="js/kitchen.js"></script>
+      <script src="js/dish.js"></script>
+      <script src="js/ingredient.js"></script>
+      <script src="js/app.js"></script>
+    </div>
   </body>
 </html>
