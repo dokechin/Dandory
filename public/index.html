@@ -51,162 +51,198 @@
   </head>
   <body>
     <div id="app">          
-      <section class="hero">
-        <div class="hero-body" style="background-image : url(img/673502_new.png)">
+      <section class="hero is-small">
+        <div class="hero-body" style="background-image : url(img/673502_new.png); padding : 0px; margin : 0px 0px 8px ;border-bottom: inset 5px #ff8c00;">
           <div class="container">
-            <h1 class="title">
+            <h3 class="title">
                 <img src="img/title_pink.png" width="320" height="256" alt="Dandory Kitchen"></img>
                 <img src="img/line_ashiato07_bird.png" style="margin : 0px 0px 30px" width="480" height="256"></img>
-                <img src="img/logo_shirofuchi.png" align="top" width="128" height="128"></img>
-              </h1>
+                <img src="img/logo_shirofuchi.png" align="top" width="128" height="48"></img>
+            </h2>
           </div>
           <div class="columns">
             <div class="column">
               <div class="columns">
                 <div class="column">
-                  <figure class="image is-64x64">
+                  <figure class="image is-64x64" style="margin : -10px 0px 0px 0px">
                     <img src="img/cooking_oyako_man_girl.png"></img>
                   </figure>
                 </div>
                 <div class="column">
                   <label class="label">料理人</label>
-                    <input class="control" type="number" min="1" max="5" v-model="human">
+                  <div class="control">
+                      <input class="input" type="number" min="1" max="5" v-model="human">
+                  </div>
                 </div>
               </div>
             </div>
             <div class="column">
               <div class="columns">
                 <div class="column">
-                  <figure class="image is-64x64">
+                  <figure class="image is-64x64" style="margin : 15px 0px 0px 0px">
                     <img src="img/gas_konro.png"></img>
                   </figure>
                 </div>
                 <div class="column">
                   <label class="label">コンロ</label>
-                    <input class="control" type="number" min="1" max="5" v-model="stove">
+                  <div class="control">
+                      <input class="input" type="number" min="1" max="5" v-model="stove">
+                  </div>
                 </div>
               </div>
             </div>
             <div class="column">
               <div class="columns">
                 <div class="column">
-                  <figure class="image is-64x64">
+                  <figure class="image is-64x64" style="margin : 15px 0px 0px 0px">
                     <img src="img/cooking_microwave.png"></img>
                   </figure>
                 </div>
                 <div class="column">
-                  <label class="label">電子レンジ</label>
-                  <input class="control" type="number" min="1" max="5" v-model="microwave">
+                  <label class="label">レンジ</label>
+                  <div class="control">
+                      <input class="input" type="number" min="1" max="5" v-model="microwave">
+                  </div>
                 </div>
               </div>
             </div>
             <div class="column">
                 <div class="columns">
                   <div class="column">
-                    <figure class="image is-64x64">
+                    <figure class="image is-64x64" style="margin : 13px 0px 0px 0px ">
                       <img src="img/oven_toaster.png"></img>
                     </figure>
                 </div>
                 <div class="column">
                   <label class="label">オーブン</label>
-                  <input class="control" type="number" min="1" max="5" v-model="oven">
+                  <div class="control">
+                    <input class="input" type="number" min="1" max="5" v-model="oven">
+                  </div>
                 </div>
               </div>
             </div>
             <div class="column">
               <div class="columns">
                 <div class="column">
-                  <figure class="image is-64x64">
+                  <figure class="image is-64x64" style="margin : 12px 0px 0px 0px">
                     <img src="img/cooking01_yaku.png"></img>
                   </figure>
                 </div>
                 <div class="column">
                   <label class="label">グリル</label>
-                  <input class="control" type="number" min="1" max="5" v-model="grill">
+                  <div class="control">
+                      <input class="input" type="number" min="1" max="5" v-model="grill">
+                  </div>
                 </div>
               </div>
             </div>
             <div class="column">
               <div class="columns">
                 <div class="column">
-                  <figure class="image is-64x64">
+                  <figure class="image is-64x64" style="margin : 20px 0px 0px 0px">
                     <img src="img/cooking_manaita.png"></img>
                   </figure>
                 </div>
                 <div class="column">
                   <label class="label">作業台</label>
-                  <input class="control" type="number" min="1" max="5" v-model="counter">
+                  <div class="control">
+                      <input class="input" type="number" min="1" max="5" v-model="counter">
+                  </div>
                 </div>
               </div>
             </div>
           </div>      
         </div>
       </section>
-      <div class="heading">
-        <h2 class="title">料理</h2>
-      </div>
-      <div class="field" v-for="menu,index in menus">
-        <label class="checkbox">
-          <input class="checkbox" type="checkbox" :value="index" v-model="selectedIndex">
-          {{ menu.name }}
-        </label>
-      </div>
-      <div class="heading">
-        <h2 class="title">人数</h2>
-      </div>  
-      <div class="field">
-        <input class="control" type="number" min="1" max="10" v-model="person">
-      </div>
+      <section style="background-color :rgb(251,244,178)">
+        <div class="container">
+          <div class="columns is-centered">
+            <div class="column is-narrow">
+              <div class="field is-horizontal">
+                <label class="label">料理</label>
+                <p class="control">
+                  <input class="input" type="number" min="1" max="10" v-model="person" style="width : 100px">
+                </p>
+                <p class="help">人前</p>
+              </div>
+            </div>
+          </div>  
 
-      <div class="field is-grouped">
-        <p class="control">
-          <a class="button is-primary" v-on:click="renderTimeline">
-            <span class="icon is-medium">
-              <i class="fa fa-2x fa-tasks"></i>
-            </span>
-              &nbsp;&nbsp;&nbsp;&nbsp;材料段取り更新
-          </a>
-        </p>
-        <p class="control">
-          <a class="button is-info" v-on:click="show = !show">
-            <span class="icon is-medium">
-              <i class="fa fa-2x fa-shopping-bag"></i>
-            </span>
-            &nbsp;&nbsp;&nbsp;&nbsp;{{ show? "準備食材非表示" : "準備食材表示"　}}
-          </a>
-        </p>  
-        <p class="control">
-          <a class="button is-danger" v-on:click="start">
-            <span class="icon is-medium">
-              <i class="fa fa-2x fa-clock-o"></i>
-            </span>
-            &nbsp;&nbsp;&nbsp;&nbsp;タイマースタート
-          </a>
-        </p>
-      </div>
-      <div id="sum">
-        <transition name="fade">
-          <div v-if="show">
-            <div v-for="ingredientSum in ingredientSums">
-              <label>{{ ingredientSum.name }} {{ ingredientSum.total }} {{ ingredientSum.unit }}</label>
+          <div class="columns">            
+            <div class="column" v-for="menu,index in menus">
+              <figure class="image is-64x64" style="margin : 20px 0px 0px 0px">
+                <img v-bind:src="menu.image"></img>
+              </figure>
+              <label class="checkbox">
+                <input class="checkbox" type="checkbox" :value="index" v-model="selectedIndex">
+                  {{menu.name}}
+              </label>
             </div>
           </div>
-        </transition>
-      </div>
-      <article class="message is-primary" v-for="dish,index in selectedDishes" v-on:click="dish.show = !dish.show">
-        <div class="message-header"><p><span v-bind:style="dish.style">■</span>{{ dish.name }}</p></div>
-        <div class="message-body" v-if="dish.show">
-          <label>材料<label>
-            <ol>
-              <li v-for="ingredient in dish.ingredients">{{ ingredient.name }} {{ ingredient.amount }} {{ ingredient.unit }}</li>
-            </ol>
-          <label>手順</label>
-            <ol>
-              <li v-for="step,index in dish.steps">{{ step.content }}</li>
-            </ol>
+
+          <!--div class="field" v-for="menu,index in menus">
+              <label class="checkbox">
+                <input class="checkbox" type="checkbox" :value="index" v-model="selectedIndex">
+                {{ menu.name }}
+              </label>
+          </div-->       
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="button is-primary" v-on:click="renderTimeline">
+                <span class="icon is-medium">
+                  <i class="fa fa-2x fa-tasks"></i>
+                </span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;材料段取り更新
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-info" v-on:click="show = !show">
+                <span class="icon is-medium">
+                  <i class="fa fa-2x fa-shopping-bag"></i>
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;{{ show? "準備食材非表示" : "準備食材表示"　}}
+              </a>
+            </p>  
+            <p class="control">
+              <a class="button is-danger" v-on:click="start">
+                <span class="icon is-medium">
+                  <i class="fa fa-2x fa-clock-o"></i>
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;タイマースタート
+              </a>
+            </p>
+          </div>
+
+          <article style="cursor: pointer" class="message is-info" v-if="show" v-on:click="show = !show">
+              <div class="message-header">食材合計</div>
+              <div class="message-body">
+                <div class="content">
+                  <ol>
+                    <li v-for="ingredientSum in ingredientSums">{{ ingredientSum.name }} {{ ingredientSum.total }} {{ ingredientSum.unit }}</li>
+                  </ol>
+                </div>
+              </div>
+          </article>
+
+          <article style="cursor: pointer" class="message is-primary" v-for="dish,index in selectedDishes" v-on:click="dish.show = !dish.show">
+            <div class="message-header"><p><span v-bind:style="dish.style">■</span>&nbsp;&nbsp;{{ dish.name }}&nbsp;&nbsp;クリックで「材料」及び「手順」を表示/非表示</div>
+            <div class="message-body" v-if="dish.show">
+              <div class="content">
+                <h2 class="title">材料</h2>              
+                <ol>
+                  <li v-for="ingredient in dish.ingredients">{{ ingredient.name }} {{ ingredient.amount }} {{ ingredient.unit }}</li>
+                </ol>
+                <hr>
+                <h2 class="title">手順</h2>
+                <ol>
+                  <li v-for="step,index in dish.steps">{{ step.content }}</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+          <div>調理時間{{ cookingTime }}分 終了時刻{{ endingTime}}</div>
         </div>
-      </article>
-      <div>調理時間{{ cookingTime }}分 終了時刻{{ endingTime}}</div>
+      </section>
     </div>
     <div id="visualization"></div>          
       <script src="js/kitchen.js"></script>

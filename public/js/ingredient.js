@@ -1,5 +1,5 @@
 var IngredientDictionary = [
-	{ id : 100001, name : "さんま", unit : "匹"},
+	{ id : 100001, name : "秋刀魚", unit : "匹"},
 	{ id : 100002, name : "鶏もも肉", unit : "グラム", conv : {"枚" : 300}},	
 
 	{ id : 200001, name : "豆腐", unit : "丁", conv : {"グラム" : "1/300"}},
