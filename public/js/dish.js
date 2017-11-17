@@ -1,6 +1,6 @@
 var dish1 = {
 	name : '秋刀魚の塩焼き',
-	image : "img/sanma.jpg",
+	image : "img/sanma.png",
 	ingredients : [
 	  {name : '秋刀魚', amount : 1, unit : '匹'},		
 	  {name : '塩',    amount : 1, unit : '小さじ'},
@@ -16,7 +16,7 @@ var dish1 = {
   
   var dish2 = {
 	name : '味噌汁',
-	image : "img/miso_soup.jpg",	
+	image : "img/miso_soup.png",	
 	ingredients : [
 	  {name : '味噌', amount : 16, unit : 'グラム'},
 	  {name : '水',    amount : 160, unit : 'cc'},
@@ -32,7 +32,7 @@ var dish1 = {
   
   var dish3 = {
 	name : 'カレーライス',
-	image : "img/curry_rice.jpg",	
+	image : "img/curry_rice.png",	
 	ingredients : [
 	{name : '鶏もも肉', amount : 60, unit : 'グラム'},
 	{name : '玉ねぎ',    amount : "1/2", unit : '個'},
@@ -50,7 +50,7 @@ steps : [
 
 	var dish4 = {
 		name : 'ポテトサラダ',
-		image : "img/potato_salad.jpg",		
+		image : "img/potato_salad.png",		
 		ingredients : [
 		{name : 'じゃがいも', amount : 1, unit : '個'},
 		{name : 'にんじん',    amount : "1/8", unit : '本'},
