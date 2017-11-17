@@ -25,14 +25,7 @@
         width: 100%;
         padding: 0;
         font-size: 12px;
-      }
-
-      .fade-enter-active, .fade-leave-active {
-        transition: opacity .5s
-      }
-
-      .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-        opacity: 0
+        background: rgb(251,244,178) ;
       }
 
     </style>
@@ -71,7 +64,7 @@
                 <div class="column">
                   <label class="label">料理人</label>
                   <div class="control">
-                      <input class="input" type="number" min="1" max="5" v-model="human">
+                      <input class="input is-primary" type="number" min="1" max="5" v-model="human">
                   </div>
                 </div>
               </div>
@@ -86,7 +79,7 @@
                 <div class="column">
                   <label class="label">コンロ</label>
                   <div class="control">
-                      <input class="input" type="number" min="1" max="5" v-model="stove">
+                      <input class="input is-primary" type="number" min="1" max="5" v-model="stove">
                   </div>
                 </div>
               </div>
@@ -101,7 +94,7 @@
                 <div class="column">
                   <label class="label">レンジ</label>
                   <div class="control">
-                      <input class="input" type="number" min="1" max="5" v-model="microwave">
+                      <input class="input is-primary" type="number" min="1" max="5" v-model="microwave">
                   </div>
                 </div>
               </div>
@@ -116,7 +109,7 @@
                 <div class="column">
                   <label class="label">オーブン</label>
                   <div class="control">
-                    <input class="input" type="number" min="1" max="5" v-model="oven">
+                    <input class="input is-primary" type="number" min="1" max="5" v-model="oven">
                   </div>
                 </div>
               </div>
@@ -131,7 +124,7 @@
                 <div class="column">
                   <label class="label">グリル</label>
                   <div class="control">
-                      <input class="input" type="number" min="1" max="5" v-model="grill">
+                      <input class="input is-primary" type="number" min="1" max="5" v-model="grill">
                   </div>
                 </div>
               </div>
@@ -146,7 +139,7 @@
                 <div class="column">
                   <label class="label">作業台</label>
                   <div class="control">
-                      <input class="input" type="number" min="1" max="5" v-model="counter">
+                      <input class="input is-primary" type="number" min="1" max="5" v-model="counter">
                   </div>
                 </div>
               </div>
@@ -154,14 +147,14 @@
           </div>      
         </div>
       </section>
-      <section style="background-color :rgb(251,244,178)">
+      <section style="background-color :rgb(251,244,178) ;padding :0px 0px 10px">
         <div class="container">
           <div class="columns is-centered">
             <div class="column is-narrow">
               <div class="field is-horizontal">
-                <label class="label">料理</label>
+                <label class="label">料理&nbsp;</label>
                 <p class="control">
-                  <input class="input" type="number" min="1" max="10" v-model="person" style="width : 100px">
+                  <input class="input is-primary" type="number" min="1" max="10" v-model="person" style="width : 100px">
                 </p>
                 <p class="help">人前</p>
               </div>
@@ -170,22 +163,16 @@
 
           <div class="columns">            
             <div class="column" v-for="menu,index in menus">
-              <figure class="image is-64x64" style="margin : 20px 0px 0px 0px">
+              <figure class="image is-96x96" style="margin : 20px 0px 0px 0px">
                 <img v-bind:src="menu.image"></img>
               </figure>
-              <label class="checkbox">
-                <input class="checkbox" type="checkbox" :value="index" v-model="selectedIndex">
+              <label class="checkbox has-text-weight-bold">
+                <input class="checkbox is-primary" type="checkbox" :value="index" v-model="selectedIndex">
                   {{menu.name}}
               </label>
             </div>
           </div>
 
-          <!--div class="field" v-for="menu,index in menus">
-              <label class="checkbox">
-                <input class="checkbox" type="checkbox" :value="index" v-model="selectedIndex">
-                {{ menu.name }}
-              </label>
-          </div-->       
           <div class="field is-grouped">
             <p class="control">
               <a class="button is-primary" v-on:click="renderTimeline">
@@ -211,6 +198,7 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;タイマースタート
               </a>
             </p>
+            <div class="has-text-weight-bold">調理時間{{ cookingTime }}分 終了時刻{{ endingTime}}</div>            
           </div>
 
           <article style="cursor: pointer" class="message is-info" v-if="show" v-on:click="show = !show">
@@ -240,7 +228,6 @@
               </div>
             </div>
           </article>
-          <div>調理時間{{ cookingTime }}分 終了時刻{{ endingTime}}</div>
         </div>
       </section>
     </div>
