@@ -45,112 +45,112 @@
   <body>
     <div id="app">          
       <section class="hero is-small">
-        <div class="hero-body" style="background-image : url(img/673502_new.png); padding : 0px; margin : 0px 0px 8px ;border-bottom: inset 5px #ff8c00;">
+        <div class="hero-body" style="background-image : url(img/673502_new.png); padding : 0px; margin : 0px 0px 0px ;border-bottom: inset 5px #ff8c00;">
           <div class="container">
-            <h3 class="title">
-                <img src="img/title_pink.png" width="320" height="256" alt="Dandory Kitchen"></img>
+            <h2 class="title is-marginless">
+                <a href="http://dandory.metro.co.jp" alt="Dandory Kitchen"><img src="img/title_pink.png" width="320" height="256" style="margin : 0px 0px 0px -15px" alt="Dandory Kitchen"></img></a>
                 <img src="img/line_ashiato07_bird.png" style="margin : 0px 0px 30px" width="480" height="256"></img>
-                <img src="img/logo_shirofuchi.png" align="top" width="128" height="48"></img>
+                <a href="http://www.metro.co.jp" alt="株式会社メトロ"><img src="img/logo_shirofuchi.png" align="top" width="140" height="52" style="margin : 20px 0px 40px 20px"></img></a>
             </h2>
-          </div>
-          <div class="columns">
-            <div class="column">
-              <div class="columns">
-                <div class="column">
-                  <figure class="image is-64x64" style="margin : 0px 0px 0px 0px">
-                    <img src="img/cooking_oyako_man_girl.png"></img>
-                  </figure>
-                </div>
-                <div class="column">
-                  <div class="field" style="margin : 5px 0px 0px 0px">
-                    <label class="label">料理人</label>
-                    <div class="control">
-                        <input class="input is-primary" type="number" min="1" max="5" v-model="human">
+            <div class="columns">
+              <div class="column">
+                <div class="columns">
+                  <div class="column">
+                    <figure class="image is-64x64" style="margin : 0px 0px 0px 0px">
+                      <img src="img/cooking_oyako_man_girl.png"></img>
+                    </figure>
+                  </div>
+                  <div class="column">
+                    <div class="field" style="margin : 10px 0px 0px 0px">
+                      <label class="label" style="font-size : 13px">料理人</label>
+                      <div class="control">
+                          <input class="input is-primary" type="number" min="1" max="5" v-model="human">
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="column">
-              <div class="columns">
-                <div class="column">
-                  <figure class="image is-64x64" style="margin : 25px 0px 0px 0px">
-                    <img src="img/gas_konro.png"></img>
-                  </figure>
-                </div>
-                <div class="column">
-                  <div class="field" style="margin : 5px 0px 0px 0px">
-                     <label class="label">コンロ</label>
-                    <div class="control">
-                      <input class="input is-primary" type="number" min="1" max="5" v-model="stove">
+              <div class="column">
+                <div class="columns">
+                  <div class="column">
+                    <figure class="image is-64x64" style="margin : 25px 0px 0px 0px">
+                      <img src="img/gas_konro.png"></img>
+                    </figure>
+                  </div>
+                  <div class="column">
+                    <div class="field" style="margin : 10px 0px 0px 0px">
+                      <label class="label" style="font-size : 13px">コンロ</label>
+                      <div class="control">
+                        <input class="input is-primary" type="number" min="1" max="5" v-model="stove">
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="column">
-              <div class="columns">
-                <div class="column">
-                  <figure class="image is-64x64" style="margin : 25px 0px 0px 0px">
-                    <img src="img/cooking_microwave.png"></img>
-                  </figure>
-                </div>
-                <div class="column">
-                  <div class="field" style="margin : 5px 0px 0px 0px">
-                    <label class="label">レンジ</label>
-                    <div class="control">
-                      <input class="input is-primary" type="number" min="1" max="5" v-model="microwave">
+              <div class="column">
+                <div class="columns">
+                  <div class="column">
+                    <figure class="image is-64x64" style="margin : 25px 0px 0px 0px">
+                      <img src="img/cooking_microwave.png"></img>
+                    </figure>
+                  </div>
+                  <div class="column">
+                    <div class="field" style="margin : 10px 0px 0px 0px">
+                      <label class="label" style="font-size : 13px">レンジ</label>
+                      <div class="control">
+                        <input class="input is-primary" type="number" min="1" max="5" v-model="microwave">
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="column">
+              <div class="column">
                 <div class="columns">
                   <div class="column">
                     <figure class="image is-64x64" style="margin : 21px 0px 0px 0px ">
                       <img src="img/oven_toaster.png"></img>
                     </figure>
-                </div>
-                <div class="column">
-                  <div class="field" style="margin : 5px 0px 0px 0px">
-                    <label class="label">オーブン</label>
-                    <div class="control">
-                      <input class="input is-primary" type="number" min="1" max="5" v-model="oven">
+                  </div>
+                  <div class="column">
+                    <div class="field" style="margin : 10px 0px 0px 0px">
+                      <label class="label" style="font-size : 13px">オーブン</label>
+                      <div class="control">
+                        <input class="input is-primary" type="number" min="1" max="5" v-model="oven">
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="column">
-              <div class="columns">
-                <div class="column">
-                  <figure class="image is-64x64" style="margin : 19px 0px 0px 0px">
-                    <img src="img/cooking01_yaku.png"></img>
-                  </figure>
-                </div>
-                <div class="column">
-                  <div class="field" style="margin : 5px 0px 0px 0px">
-                    <label class="label">グリル</label>
-                    <div class="control">
-                      <input class="input is-primary" type="number" min="1" max="5" v-model="grill">
+              <div class="column">
+                <div class="columns">
+                  <div class="column">
+                    <figure class="image is-64x64" style="margin : 19px 0px 0px 0px">
+                      <img src="img/cooking01_yaku.png"></img>
+                    </figure>
+                  </div>
+                  <div class="column">
+                    <div class="field" style="margin : 10px 0px 0px 0px">
+                      <label class="label" style="font-size : 13px">グリル</label>
+                      <div class="control">
+                        <input class="input is-primary" type="number" min="1" max="5" v-model="grill">
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="column">
-              <div class="columns">
-                <div class="column">
-                  <figure class="image is-64x64" style="margin : 15px 0px 0px 0px">
-                    <img src="img/cooking_manaita.png"></img>
-                  </figure>
-                </div>
-                <div class="column">
-                  <div class="field" style="margin : 5px 0px 0px 0px">
-                    <label class="label">作業台</label>
-                    <div class="control">
-                      <input class="input is-primary" type="number" min="1" max="5" v-model="counter">
+              <div class="column">
+                <div class="columns">
+                  <div class="column">
+                    <figure class="image is-64x64" style="margin : 15px 0px 0px 0px">
+                      <img src="img/cooking_manaita.png"></img>
+                    </figure>
+                  </div>
+                  <div class="column">
+                    <div class="field" style="margin : 10px 0px 0px 0px">
+                      <label class="label" style="font-size : 13px">作業台</label>
+                      <div class="control">
+                        <input class="input is-primary" type="number" min="1" max="5" v-model="counter">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -159,20 +159,17 @@
           </div>      
         </div>
       </section>
-      <section style="background-color :rgb(251,244,178) ;padding :0px 0px 10px">
+      <section style="background-color :rgb(251,244,178); padding : 15px 0px 23px">
         <div class="container">
-          <div class="columns is-centered">
-            <div class="column is-narrow">
-              <div class="field is-horizontal">
-                <label class="label">料理&nbsp;</label>
-                <p class="control">
-                  <input class="input is-primary" type="number" min="1" max="10" v-model="person" style="width : 100px">
-                </p>
-                <p class="help">人前</p>
-              </div>
-            </div>
-          </div>  
 
+          <div class="field is-horizontal" style="margin : 3px 0px 0px">
+            <label class="label" style="margin : 5px 10px 0px 0px">料理</label>
+            <p class="control">
+              <input class="input is-primary" type="number" min="1" max="10" v-model="person" style="width : 100px">
+            </p>
+            <p class="help" style="margin : 7px 5px 0px">人前</p>
+          </div>
+  
           <div class="columns">            
             <div class="column" v-for="menu,index in menus">
               <figure class="image is-96x96" style="margin : 20px 0px 0px 0px">
@@ -184,33 +181,39 @@
               </label>
             </div>
           </div>
-
-          <div class="field is-grouped">
-            <p class="control">
-              <a class="button is-primary" v-on:click="renderTimeline">
-                <span class="icon is-medium">
-                  <i class="fa fa-2x fa-tasks"></i>
-                </span>
-                  &nbsp;&nbsp;&nbsp;&nbsp;材料段取り更新
-              </a>
-            </p>
-            <p class="control">
-              <a class="button is-info" v-on:click="show = !show">
-                <span class="icon is-medium">
-                  <i class="fa fa-2x fa-shopping-bag"></i>
-                </span>
-                &nbsp;&nbsp;&nbsp;&nbsp;{{ show? "準備食材非表示" : "準備食材表示"　}}
-              </a>
-            </p>  
-            <p class="control">
-              <a class="button is-danger" v-on:click="start">
-                <span class="icon is-medium">
-                  <i class="fa fa-2x fa-clock-o"></i>
-                </span>
-                &nbsp;&nbsp;&nbsp;&nbsp;タイマースタート
-              </a>
-            </p>
-            <div class="has-text-weight-bold">調理時間{{ cookingTime }}分 終了時刻{{ endingTime}}</div>            
+  
+          <div class="columns margin-less" >
+            <div class="column is-7">
+              <div class="field is-grouped">
+                <p class="control">
+                  <a class="button is-primary" v-on:click="renderTimeline">
+                    <span class="icon is-medium">
+                      <i class="fa fa-2x fa-tasks"></i>
+                    </span>
+                      &nbsp;&nbsp;&nbsp;&nbsp;材料段取り更新
+                  </a>
+                </p>
+                <p class="control">
+                  <a class="button is-info" v-on:click="show = !show">
+                    <span class="icon is-medium">
+                      <i class="fa fa-2x fa-shopping-bag"></i>
+                    </span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{{ show? "準備食材非表示" : "準備食材表示"　}}
+                  </a>
+                </p>  
+                <p class="control">
+                  <a class="button is-danger" v-on:click="start">
+                    <span class="icon is-medium">
+                      <i class="fa fa-2x fa-clock-o"></i>
+                    </span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;タイマースタート
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div class="column is-5" style="margin : 5px 0px 0px">
+              <div class="has-text-weight-bold">調理時間{{ cookingTime }}分 終了時刻{{ endingTime}}</div>
+            </div>            
           </div>
 
           <article style="cursor: pointer" class="message is-info" v-if="show" v-on:click="show = !show">
@@ -225,8 +228,8 @@
           </article>
 
           <article style="cursor: pointer" class="message is-primary" v-for="dish,index in selectedDishes" v-on:click="dish.show = !dish.show">
-            <div class="message-header"><p><span v-bind:style="dish.style">■</span>&nbsp;&nbsp;{{ dish.name }}&nbsp;&nbsp;クリックで「材料」及び「手順」を表示/非表示</div>
-            <div class="message-body" v-if="dish.show">
+            <div class="message-header"><p><span v-bind:style="dish.style">■</span>&nbsp;&nbsp;{{ dish.name }}&nbsp;&nbsp;(クリックで「材料」及び「手順」を表示/非表示)</div>
+            <div class="message-body" v-if="dish.show" style="margin : 0px 0px 5px">
               <div class="content">
                 <h2 class="title">材料</h2>              
                 <ol>

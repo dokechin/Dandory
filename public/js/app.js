@@ -80,6 +80,10 @@ var app = new Vue({
           this.selectedDishes.push(dish);
         }
 
+        this.selectedDishes.sort(function(a,b){
+          return a.id - b.id;
+        });
+
         var ingredientSum = {};
         var that = this;
         this.selectedDishes.forEach(function(dish){

@@ -1,4 +1,5 @@
 var dish1 = {
+	id   : 1,
 	name : '秋刀魚の塩焼き',
 	image : "img/sanma.png",
 	ingredients : [
@@ -15,7 +16,8 @@ var dish1 = {
   ]};
   
   var dish2 = {
-	name : '味噌汁',
+		id   : 2,
+		name : '味噌汁',
 	image : "img/miso_soup.png",	
 	ingredients : [
 	  {name : '味噌', amount : 16, unit : 'グラム'},
@@ -31,7 +33,8 @@ var dish1 = {
   ]};
   
   var dish3 = {
-	name : 'カレーライス',
+		id   : 3,
+		name : 'カレーライス',
 	image : "img/curry_rice.png",	
 	ingredients : [
 	{name : '鶏もも肉', amount : 60, unit : 'グラム'},
@@ -49,6 +52,7 @@ steps : [
   ]};
 
 	var dish4 = {
+		id   : 4,		
 		name : 'ポテトサラダ',
 		image : "img/potato_salad.png",		
 		ingredients : [
@@ -58,15 +62,16 @@ steps : [
 		{name : 'ハム', amount : 1, unit : '枚'},
 		{name : '塩', amount : 0.5, unit : 'グラム'},
 		{name : 'こしょう', amount : 0.2, unit : 'グラム'},
-		{name : 'マヨネーズ', amount : 1, unit : '小さじ'},
+		{name : 'マヨネーズ', amount : 1, unit : '大さじ'},
 		{name : '酢', amount : 1, unit : '小さじ'}
 	],
 	steps : [
-			{name : '材料を切る', duration : 2, content : 'じゃがいもを洗い、半分に切ります。にんじんは皮をむき一口大に切ります。ハムを適当に切ります', resources : ['料理人','作業台']},
-			{name : 'じゃがいもを茹でる', dependsOn : [0], duration : 10, content : '鍋でじゃがいもを柔らかくなるまで茹でます', resources : ['コンロ'], constant : true},
+			{name : '材料を切る', duration : 1.5, content : 'じゃがいもを洗い、半分に切ります。にんじんは皮をむき一口大に切ります。きゅうりを輪切りにします。ハムを適当に切ります', resources : ['料理人','作業台']},
+			{name : 'きゅうりを塩もみする', dependsOn : [0], duration : 1, content : 'きゅうりを塩もみします', resources : ['料理人','作業台'], constant : true},
+			{name : 'じゃがいもを茹でる', dependsOn : [0], duration : 17, content : '鍋でじゃがいもを柔らかくなるまで茹でます', resources : ['コンロ'], constant : true},
 			{name : 'にんじんを茹でる', dependsOn : [0], duration : 5, content: 'にんじんを茹でます', resources : ['コンロ'], constant : true },
-			{name : 'じゃがいもを潰す', dependsOn : [1], duration : 1, content : 'じゃがいもを潰します', resources : ['料理人','作業台']},
-			{name : '混ぜる', dependsOn : [2,3], duration : 1, content : 'じゃがいも、にんじん、ハムを混ぜて。調味料で味を整えます', resources : ['料理人','作業台']}
+			{name : 'じゃがいもを潰す', dependsOn : [2], duration : 0.5, content : 'じゃがいもの皮をむき潰します', resources : ['料理人','作業台'], proportional : { b : 1 }},
+			{name : '混ぜる', dependsOn : [1,3,4], duration : 1, content : 'じゃがいも、にんじん、きゅうり、ハムを混ぜて、調味料で味を整えます', resources : ['料理人','作業台']}
 		]};
 	
   var dishes = [dish1, dish2, dish3, dish4];
