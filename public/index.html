@@ -216,27 +216,66 @@
             </div>            
           </div>
 
-          <article style="cursor: pointer" class="message is-info" v-if="show" v-on:click="show = !show">
-              <div class="message-header">食材合計</div>
+          <article class="message is-info" v-if="show">
+              <div class="message-header" style="cursor: pointer" v-on:click="show = !show">食材合計</div>
               <div class="message-body">
-                <div class="content">
-                  <ol>
-                    <li v-for="ingredientSum in ingredientSums">{{ ingredientSum.name }} {{ ingredientSum.total }} {{ ingredientSum.unit }}</li>
-                  </ol>
+                <div class="content">                      
+                  <table class="table is-narrow is-marginless is-striped">
+                    <thead>
+                      <tr>
+                        <th>No.</th>
+                        <th>材料</th>
+                        <th>分量</th>
+                      </th>
+                    </thead>
+                    <tbody>
+                      <tr v-for="ingredientSum,index in ingredientSums">
+                        <th>
+                          {{ index+1 }}
+                        </th>
+                        <td>
+                            {{ ingredientSum.name }}
+                        </td>
+                        <td>
+                          {{ ingredientSum.total }} {{ ingredientSum.unit }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
           </article>
 
-          <article style="cursor: pointer" class="message is-primary" v-for="dish,index in selectedDishes" v-on:click="dish.show = !dish.show">
-            <div class="message-header"><p><span v-bind:style="dish.style">■</span>&nbsp;&nbsp;{{ dish.name }}&nbsp;&nbsp;(クリックで「材料」及び「手順」を表示/非表示)</div>
+          <article class="message is-primary" v-for="dish,index in selectedDishes">
+            <div class="message-header" style="cursor: pointer" v-on:click="dish.show = !dish.show"><p><span v-bind:style="dish.style">■</span>&nbsp;&nbsp;{{ dish.name }}&nbsp;&nbsp;(クリックで「材料」及び「手順」を表示/非表示)</div>
             <div class="message-body" v-if="dish.show" style="margin : 0px 0px 5px">
               <div class="content">
-                <h2 class="title">材料</h2>              
-                <ol>
-                  <li v-for="ingredient in dish.ingredients">{{ ingredient.name }} {{ multiply_ingredient(ingredient.amount, ingredient.unit, person) }}</li>
-                </ol>
-                <hr>
-                <h2 class="title">手順</h2>
+                <h3 class="title">材料</h3>              
+
+                <table class="table is-narrow is-marginless is-striped">
+                    <thead>
+                      <tr>
+                        <th>No.</th>
+                        <th>材料</th>
+                        <th>分量</th>
+                      </th>
+                    </thead>
+                    <tbody>
+                      <tr v-for="ingredient,index in dish.ingredients">
+                        <th>
+                          {{ index+1 }}
+                        </th>
+                        <td>
+                          {{ ingredient.name }}
+                        </td>
+                        <td>
+                          {{ multiply_ingredient(ingredient.amount, ingredient.unit, person) }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+  
+                <h3 class="title">手順</h3>
                 <ol>
                   <li v-for="step,index in dish.steps">{{ step.content }}</li>
                 </ol>
