@@ -4,15 +4,16 @@ var dish1 = {
 	image : "img/sanma.png",
 	ingredients : [
 	  {name : '秋刀魚', amount : 1, unit : '匹'},		
-	  {name : '塩',    amount : 1, unit : '小さじ'},
+	  {name : '塩',    amount : "1/2", unit : '小さじ'},
 	  {name : 'すだち', amount : "1/2", unit : '個'},
 	  {name : '大根', amount : 15, unit : 'グラム'}
 	],
 	steps : [
 	  {name : '塩をまぶす', duration : 0.5, content : '秋刀魚に塩をひとつまみ振ります', resources : ['料理人','作業台'], proportional : { b : 2 }},
-	  {name : '大根をおろす', duration : 0.5, content : '大根をおろします', resources : ['料理人','作業台'], proportional : { b : 2 }},
+	  {name : '大根をおろす', duration : 0.5, content : '大根をおろします', resources : ['料理人','作業台'], proportional : { b : 1 }},
+	  {name : 'すだちを切る', duration : 0.2, content : 'すだちを半分に切ります', resources : ['料理人','作業台'], proportional : { b : 1 }},
 	  {name : '染み込ませる', dependsOn : [0], duration : 15, content : '冷蔵庫で15分塩を染み込ませます', resources : ["冷蔵庫"], constant : true},
-	  {name : '焼く', dependsOn : [2], duration : 7, content : 'グリルで中火で焼きます' , resources : ['グリル'], constant : true}
+	  {name : '焼く', dependsOn : [3], duration : 10, content : 'グリルで中火で焼きます' , resources : ['グリル'], constant : true}
   ]};
   
   var dish2 = {
