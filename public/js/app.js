@@ -130,9 +130,6 @@ var app = new Vue({
         var resourcesWithId = kitchen.getResourcesWithIdForDish(permutationDishes[bestIndex]);
         now = moment().milliseconds(0);
 
-        console.log(tasks);
-        console.log(resourcesWithId);
-
         var s = schedule.create(tasks, resourcesWithId, null, new Date());
 
         console.log(s);
@@ -182,7 +179,6 @@ var app = new Vue({
             var st = s.scheduledTasks[taskIndex];            
             var start = moment(st.earlyStart, 'x');
             var end = moment(st.earlyFinish, 'x');
-            console.log(step.name + "start" + start.format() + "end" + end.format());
             var schedule = st.schedule;
             var humanResourceName = getHumanResourceName(st.schedule[0].resources);
             var nonHumanResource = getNonHumanResource(st.schedule[0].resources);
@@ -196,8 +192,6 @@ var app = new Vue({
               end: end,
               type: 'range'
             });
-
-            //              style: "background-color: " + itemColor + ";"
 
             taskIndex++;
           });
@@ -213,8 +207,35 @@ var app = new Vue({
         this.timeline.setItems(this.items);
         this.timeline.fit();
         this.timeline.redraw();
+      },
+      multiply_ingredient : function(amount, unit, person){
+          
+        var total = math.eval(amount + "*"  + person);
+        console.log(amount + unit + '*' + person);
             
+        if (unit !="ml" && unit !="グラム"){
+          if (!math.isInteger(total)){
+            var num = math.floor(total);
+            var fraction_part = total - num;
+            console.log('num' + num);
+            console.log('fraction_part' + fraction_part);
+            
+            if (num >= 1){
+              total = num + " " + math.format(math.fraction(fraction_part), {fraction: 'ratio'});
+            }
+            else{
+              total = math.format(math.fraction(fraction_part), {fraction: 'ratio'});
+            }
+          }
+        }
+
+        if (unit == '小さじ' || unit == '大さじ'){
+          return unit + ' ' + total;
+        }
+        else{
+          return total + ' ' + unit;		
+        }
+      }   
     }
-  }
   });
 

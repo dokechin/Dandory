@@ -22,6 +22,7 @@ var IngredientDictionary = [
 	{ id : 500001, name : "酢",   unit : "ml", conv : {"小さじ" : 5, "大さじ" : 15}},
 	{ id : 500002, name : "砂糖", unit : "グラム", conv : {"小さじ" : 3, "大さじ" : 9}},
 	{ id : 500003, name : "味噌", unit : "グラム", conv : {"小さじ" : 6, "大さじ" : 18}},
+	{ id : 500003, name : "だしの素", unit : "グラム", conv : {"小さじ" : 3, "大さじ" : 9}},
 	{ id : 500004, name : "水", unit : "ml", conv : {"小さじ" : 5, "大さじ" : 15, "cc" : 1}},
 	{ id : 500005, name : "サラダ油", unit : "ml", conv : {"小さじ" : 5, "大さじ" : 15, "cc" : 1}},
 	{ id : 500006, name : "カレールー",   unit : "グラム"},
@@ -65,7 +66,7 @@ class IngredientSummary {
 			if (!math.isInteger(this.total_value)){
 				var num = math.floor(this.total_value);
 				var fraction_part = this.total_value - num;
-				if (num > 1){
+				if (num >= 1){
 					this.total = num + " " + math.format(math.fraction(fraction_part), {fraction: 'ratio'});
 				}
 				else{
@@ -79,6 +80,5 @@ class IngredientSummary {
 		else{
 			this.total = this.total_value;
 		}
-		console.log(this.total);
 	}	
 }

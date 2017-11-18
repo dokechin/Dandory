@@ -233,7 +233,7 @@
               <div class="content">
                 <h2 class="title">材料</h2>              
                 <ol>
-                  <li v-for="ingredient in dish.ingredients">{{ ingredient.name }} {{ (ingredient.unit == '大さじ' || ingredient.unit == '小さじ') ? ingredient.unit : ingredient.amount }} {{ (ingredient.unit == '大さじ' || ingredient.unit == '小さじ') ? ingredient.amount : ingredient.unit}}</li>
+                  <li v-for="ingredient in dish.ingredients">{{ ingredient.name }} {{ multiply_ingredient(ingredient.amount, ingredient.unit, person) }}</li>
                 </ol>
                 <hr>
                 <h2 class="title">手順</h2>
