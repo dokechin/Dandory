@@ -30,8 +30,8 @@ var dish1 = {
 	],
 	steps : [
 	  {name : '材料を切る', duration : 0.2, content : '豆腐を小口切り、長ネギをみじん切りにします', resources : ['料理人','作業台'], proportional : { b : 1 }},
-	  {name : '煮る', dependsOn : [0], duration : 5, content: '鍋に水を沸かし、だしの素を加えます', resources : ['コンロ'], constant : true},
-	  {name : '豆腐を加える', dependsOn : [1], duration : 1, content: '豆腐を鍋に入れます', resources : ['コンロ','料理人'], constant : true},
+	  {name : '煮る', duration : 5, content: '鍋に水を沸かし、だしの素、乾燥わかめを加えます', resources : ['コンロ'], constant : true},
+	  {name : '豆腐を加える', dependsOn : [0, 1], duration : 1, content: '豆腐を鍋に入れます', resources : ['コンロ','料理人'], constant : true},
 	  {name : '味噌を溶く', dependsOn : [2], duration : 2, content : '火を止めてから、味噌、長ネギを入れます', resources : ['料理人','コンロ'], constant : true }
   ]};
   

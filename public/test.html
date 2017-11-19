@@ -12,7 +12,6 @@
 	  <button onclick="test()">Send Request</button>
 	<script>
 		function test(){
-			let params = new URLSearchParams();
 			var tasks = 
 			[
 					{id: 0, duration: 12, minSchedule: 12, dependsOn: [], resources: [["料理人1"], ["作業台1"]]},
@@ -30,10 +29,8 @@
 					{id: "コンロ1", isNotReservable: false},
 					{id: "コンロ2", isNotReservable: false}
 				];
-			params.append('tasks', tasks);
-			params.append('resources', resources);
 
-			axios.post('/schedule', JSON.stringify({tasks: tasks, resources: resources}))
+			axios.post('/schedule', {tasks: tasks, resources: resources})
 			  .then(function (response) {
 				console.log(response);
 			  })
