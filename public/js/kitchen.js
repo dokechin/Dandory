@@ -92,20 +92,9 @@ class Kitchen {
 						dependsOn.push(depend + lastIndex);
 					});
 				}
-				var duration = 0;
-				if (step.hasOwnProperty('constant')){
-					duration = step.duration;
-				}
-				else{
-					var b = 0;
-					if(step.hasOwnProperty('proportional')){
-						if (step.proportional.hasOwnProperty('b')){
-							b = step.proportional.b;
-						}
-					}
-					duration = step.duration * person + b;
-				}
-				tasks.push({id : index, duration : duration, minSchedule: duration, dependsOn : dependsOn, resources : that.mappingKitchenResource(step.resources)});
+				console.log(step);
+				var duration = Math.round(eval(step.duration));
+				tasks.push({id : String(index), duration : duration, minSchedule: duration, dependsOn : dependsOn, resources : that.mappingKitchenResource(step.resources)});
 				index++;
 		  });
 		  lastIndex = index;

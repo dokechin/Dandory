@@ -108,77 +108,63 @@ var app = new Vue({
 
         var kitchen = new Kitchen(this.human, this.stove, this.microwave, this.oven, this.grill, this.counter);
 
-        // Task total time depends on dish order. 
-        var permutationDishes = this.selectedDishes.permutation(this.selectedDishes.length);
+        var tasks = kitchen.getTasksForDish(this.selectedDishes, that.person);
+        var resources = kitchen.getResourcesForDish(this.selectedDishes);
+        var resourcesWithId = kitchen.getResourcesWithIdForDish(this.selectedDishes);
 
-        var bestIndex = 0;
-        var minTime = -1;
-        permutationDishes.forEach( function (dishes, index){
-          var tasks = kitchen.getTasksForDish(dishes, that.person);
-          var resources = kitchen.getResourcesForDish(dishes);
-          var resourcesWithId = kitchen.getResourcesWithIdForDish(dishes);
-          now = moment().milliseconds(0);
-          var s = schedule.create(tasks, resourcesWithId, null, new Date());
-          if (minTime == -1 || s.end - s.start < minTime){
-            minTime = s.end - s.start;
-            bestIndex = index;
-          }
-        });
- 
-        var tasks = kitchen.getTasksForDish(permutationDishes[bestIndex], that.person);
-        var resources = kitchen.getResourcesForDish(permutationDishes[bestIndex]);
-        var resourcesWithId = kitchen.getResourcesWithIdForDish(permutationDishes[bestIndex]);
-        now = moment().milliseconds(0);
+        axios.post('/schedule', {tasks: tasks, resources: resourcesWithId})
+        .then(function (response) {
 
-        var s = schedule.create(tasks, resourcesWithId, null, new Date());
-    
+        console.log(response)
+
+        s = response.data;
         // cooking minutes
         if (s.start){
-          this.cookingTime = (s.end - s.start) / (1000 * 60);
-          this.endingTime = moment(s.end).format('HH:mm:ss');
+          that.cookingTime = (s.end - s.start) /60;
+          that.endingTime = moment(s.end * 1000).format('HH:mm:ss');
         }
         else{
-          this.cookingTime = 0;
-          this.endingTime = null;          
+          that.cookingTime = 0;
+          that.endingTime = null;          
         }
 
         // create a data set with groups
         var dishIndex = {};
         var dishResourceIndex = {};
-        var groupCount = this.selectedDishes.length;
+        var groupCount = that.selectedDishes.length;
         var groups = new vis.DataSet();
         for (var g = 0; g < groupCount; g++) {
 
           var cooks = kitchen.getResourceNames("料理人");
           var nested = new Array();
 
-          dishResourceIndex[this.selectedDishes[g].name] = {};
+          dishResourceIndex[that.selectedDishes[g].name] = {};
         
           for (var i = 0 ;i<cooks.length;i++){
-            dishResourceIndex[this.selectedDishes[g].name][cooks[i]] =  ((g + 1) * 100 + i);
+            dishResourceIndex[that.selectedDishes[g].name][cooks[i]] =  ((g + 1) * 100 + i);
             groups.add({id: ((g + 1) * 100 + i), content: cooks[i]});
             nested.push(((g + 1) * 100 + i));
           }
-          dishResourceIndex[this.selectedDishes[g].name]["その他"] =  ((g + 1) * 100 + cooks.length + 1);         
+          dishResourceIndex[that.selectedDishes[g].name]["その他"] =  ((g + 1) * 100 + cooks.length + 1);         
           groups.add({id: ((g + 1) * 100 + cooks.length + 1), content: "その他"});
           nested.push(((g + 1) * 100 + cooks.length + 1));
 
-          groups.add({id: g, content: this.selectedDishes[g].name, nestedGroups : nested});
-          dishIndex[this.selectedDishes[g].name] = g;
+          groups.add({id: g, content: that.selectedDishes[g].name, nestedGroups : nested});
+          dishIndex[that.selectedDishes[g].name] = g;
         }
         // create a dataset with items
-        this.items = new vis.DataSet();
-        var items = this.items;
+        that.items = new vis.DataSet();
+        var items = that.items;
         var itemIndex = 0;
         var taskIndex = 0;
-        permutationDishes[bestIndex].forEach(function (dish,dishIndex){
+        that.selectedDishes.forEach(function (dish,dishIndex){
           dish.steps.forEach(function (step){
-            var st = s.scheduledTasks[taskIndex];            
-            var start = moment(st.earlyStart, 'x');
-            var end = moment(st.earlyFinish, 'x');
+            var st = s.tasks[taskIndex];            
+            var start = moment(st.earlyStart * 1000, 'x');
+            var end = moment(st.earlyFinish * 1000, 'x');
             var schedule = st.schedule;
-            var humanResourceName = getHumanResourceName(st.schedule[0].resources);
-            var nonHumanResource = getNonHumanResource(st.schedule[0].resources);
+            var humanResourceName = getHumanResourceName(st.resources);
+            var nonHumanResource = getNonHumanResource(st.resources);
             
             items.add({
               id: itemIndex++,
@@ -199,11 +185,16 @@ var app = new Vue({
           showCurrentTime: false,
           zoomable : false
         };
-        this.timeline.setOptions(options);
-        this.timeline.setGroups(groups);
-        this.timeline.setItems(this.items);
-        this.timeline.fit();
-        this.timeline.redraw();
+        that.timeline.setOptions(options);
+        that.timeline.setGroups(groups);
+        that.timeline.setItems(that.items);
+        that.timeline.fit();
+        that.timeline.redraw();
+
+      })
+        .catch(function (error) {
+          console.log(error);
+        });    
       },
       multiply_ingredient : function(amount, unit, person){
           

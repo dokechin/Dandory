@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dandory Kitchen</title>
+
+    <style>
+      body, html {
+        font-family: arial, sans-serif;
+        font-size: 11pt;
+      }
+
+      #visualization {
+        box-sizing: border-box;
+        width: 100%;
+        height: 300px;
+      }
+
+      .vis-item .vis-item-overflow {
+        overflow: visible;
+      }
+      .vis-item .vis-item-content {
+        width: 100%;
+        padding: 0;
+        font-size: 12px;
+        background: rgb(251,244,178) ;
+      }
+
+    </style>
+
+    <!-- note: moment.js must be loaded before vis.js, else vis.js uses its embedded version of moment.js -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css">    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.min.js"></script>
+    <script src="vendor/js/vis.min.js"></script>
+    <script src="vendor/js/later.min.js"></script>
+    <script src="vendor/js/schedule.min.js"></script>
+    <script src="vendor/js/ArrayPermutation.js"></script>
+    <script src="vendor/js/math.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link href="vendor/css/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div id="app">          
+      <section class="hero is-small">
+        <div class="hero-body" style="background-image : url(img/673502_new.png); padding : 0px; margin : 0px 0px 0px ;border-bottom: inset 5px #ff8c00;">
+          <div class="container">
+            <h2 class="title is-marginless">
+                <a href="http://dandory.metro.co.jp" alt="Dandory Kitchen"><img src="img/title_pink.png" width="320" height="256" style="margin : 0px 0px 0px -15px" alt="Dandory Kitchen"></img></a>
+                <img src="img/line_ashiato07_bird.png" style="margin : 0px 0px 30px" width="480" height="256"></img>
+                <a href="http://www.metro.co.jp" alt="株式会社メトロ"><img src="img/logo_shirofuchi.png" align="top" width="140" height="52" style="margin : 20px 0px 40px 20px"></img></a>
+            </h2>
+            <div class="columns">
+              <div class="column">
+                <div class="columns">
+                  <div class="column">
+                    <figure class="image is-64x64" style="margin : 0px 0px 0px 0px">
+                      <img src="img/cooking_oyako_man_girl.png"></img>
+                    </figure>
+                  </div>
+                  <div class="column">
+                    <div class="field" style="margin : 10px 0px 0px 0px">
+                      <label class="label" style="font-size : 13px">料理人</label>
+                      <div class="control">
+                          <input class="input is-primary" type="number" min="1" max="5" v-model="human">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="columns">
+                  <div class="column">
+                    <figure class="image is-64x64" style="margin : 25px 0px 0px 0px">
+                      <img src="img/gas_konro.png"></img>
+                    </figure>
+                  </div>
+                  <div class="column">
+                    <div class="field" style="margin : 10px 0px 0px 0px">
+                      <label class="label" style="font-size : 13px">コンロ</label>
+                      <div class="control">
+                        <input class="input is-primary" type="number" min="1" max="5" v-model="stove">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="columns">
+                  <div class="column">
+                    <figure class="image is-64x64" style="margin : 25px 0px 0px 0px">
+                      <img src="img/cooking_microwave.png"></img>
+                    </figure>
+                  </div>
+                  <div class="column">
+                    <div class="field" style="margin : 10px 0px 0px 0px">
+                      <label class="label" style="font-size : 13px">レンジ</label>
+                      <div class="control">
+                        <input class="input is-primary" type="number" min="1" max="5" v-model="microwave">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="columns">
+                  <div class="column">
+                    <figure class="image is-64x64" style="margin : 21px 0px 0px 0px ">
+                      <img src="img/oven_toaster.png"></img>
+                    </figure>
+                  </div>
+                  <div class="column">
+                    <div class="field" style="margin : 10px 0px 0px 0px">
+                      <label class="label" style="font-size : 13px">オーブン</label>
+                      <div class="control">
+                        <input class="input is-primary" type="number" min="1" max="5" v-model="oven">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="columns">
+                  <div class="column">
+                    <figure class="image is-64x64" style="margin : 19px 0px 0px 0px">
+                      <img src="img/cooking01_yaku.png"></img>
+                    </figure>
+                  </div>
+                  <div class="column">
+                    <div class="field" style="margin : 10px 0px 0px 0px">
+                      <label class="label" style="font-size : 13px">グリル</label>
+                      <div class="control">
+                        <input class="input is-primary" type="number" min="1" max="5" v-model="grill">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="columns">
+                  <div class="column">
+                    <figure class="image is-64x64" style="margin : 15px 0px 0px 0px">
+                      <img src="img/cooking_manaita.png"></img>
+                    </figure>
+                  </div>
+                  <div class="column">
+                    <div class="field" style="margin : 10px 0px 0px 0px">
+                      <label class="label" style="font-size : 13px">作業台</label>
+                      <div class="control">
+                        <input class="input is-primary" type="number" min="1" max="5" v-model="counter">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>      
+        </div>
+      </section>
+      <section style="background-color :rgb(251,244,178); padding : 15px 0px 23px">
+        <div class="container">
+
+          <div class="field is-horizontal" style="margin : 3px 0px 0px">
+            <label class="label" style="margin : 5px 10px 0px 0px">料理</label>
+            <p class="control">
+              <input class="input is-primary" type="number" min="1" max="10" v-model="person" style="width : 100px">
+            </p>
+            <p class="help" style="margin : 7px 5px 0px">人前</p>
+          </div>
+  
+          <div class="columns">            
+            <div class="column" v-for="menu,index in menus">
+              <figure class="image is-96x96" style="margin : 20px 0px 0px 0px">
+                <img v-bind:src="menu.image"></img>
+              </figure>
+              <label class="checkbox has-text-weight-bold">
+                <input class="checkbox is-primary" type="checkbox" :value="index" v-model="selectedIndex">
+                  {{menu.name}}
+              </label>
+            </div>
+          </div>
+  
+          <div class="columns margin-less" >
+            <div class="column is-7">
+              <div class="field is-grouped">
+                <p class="control">
+                  <a class="button is-primary" v-on:click="renderTimeline">
+                    <span class="icon is-medium">
+                      <i class="fa fa-2x fa-tasks"></i>
+                    </span>
+                      &nbsp;&nbsp;&nbsp;&nbsp;材料段取り更新
+                  </a>
+                </p>
+                <p class="control">
+                  <a class="button is-info" v-on:click="show = !show">
+                    <span class="icon is-medium">
+                      <i class="fa fa-2x fa-shopping-bag"></i>
+                    </span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{{ show? "準備食材非表示" : "準備食材表示"　}}
+                  </a>
+                </p>  
+                <p class="control">
+                  <a class="button is-danger" v-on:click="start">
+                    <span class="icon is-medium">
+                      <i class="fa fa-2x fa-clock-o"></i>
+                    </span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;タイマースタート
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div class="column is-5" style="margin : 5px 0px 0px">
+              <div class="has-text-weight-bold">調理時間{{ cookingTime }}分 終了時刻{{ endingTime}}</div>
+            </div>            
+          </div>
+
+          <article class="message is-info" v-if="show">
+              <div class="message-header" style="cursor: pointer" v-on:click="show = !show">食材合計</div>
+              <div class="message-body">
+                <div class="content">                      
+                  <table class="table is-narrow is-marginless is-striped">
+                    <thead>
+                      <tr>
+                        <th>No.</th>
+                        <th>材料</th>
+                        <th>分量</th>
+                      </th>
+                    </thead>
+                    <tbody>
+                      <tr v-for="ingredientSum,index in ingredientSums">
+                        <th>
+                          {{ index+1 }}
+                        </th>
+                        <td>
+                            {{ ingredientSum.name }}
+                        </td>
+                        <td>
+                          {{ ingredientSum.total }} {{ ingredientSum.unit }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+          </article>
+
+          <article class="message is-primary" v-for="dish,index in selectedDishes">
+            <div class="message-header" style="cursor: pointer" v-on:click="dish.show = !dish.show"><p><span v-bind:style="dish.style">■</span>&nbsp;&nbsp;{{ dish.name }}&nbsp;&nbsp;(クリックで「材料」及び「手順」を表示/非表示)</div>
+            <div class="message-body" v-if="dish.show" style="margin : 0px 0px 5px">
+              <div class="content">
+                <h3 class="title">材料</h3>              
+
+                <table class="table is-narrow is-marginless is-striped">
+                    <thead>
+                      <tr>
+                        <th>No.</th>
+                        <th>材料</th>
+                        <th>分量</th>
+                      </th>
+                    </thead>
+                    <tbody>
+                      <tr v-for="ingredient,index in dish.ingredients">
+                        <th>
+                          {{ index+1 }}
+                        </th>
+                        <td>
+                          {{ ingredient.name }}
+                        </td>
+                        <td>
+                          {{ multiply_ingredient(ingredient.amount, ingredient.unit, person) }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+  
+                <h3 class="title">手順</h3>
+                <ol>
+                  <li v-for="step,index in dish.steps">{{ step.content }}</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+    <div id="visualization"></div>          
+      <script src="js/kitchen.js"></script>
+      <script src="js/dish.js"></script>
+      <script src="js/ingredient.js"></script>
+      <script src="js/app2.js"></script>
+    </div>
+  </body>
+</html>
