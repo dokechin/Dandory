@@ -67,6 +67,21 @@ var app = new Vue({
         this.timeline.setItems(updateItems);
         this.timeline.fit();
         this.timeline.redraw();
+
+        that = this;
+        this.timeline.on ('currentTimeTick', function () {
+          that.items.forEach(function(item,index){
+            if (item.start.toDate() < that.timeline.getCurrentTime() && that.timeline.getCurrentTime() < item.end.toDate()){
+              item.className = "background-availability";
+            }
+            else{
+              item.className = "";
+            }
+            that.timeline.itemSet.items[index].setData(item);
+          });
+          that.timeline.redraw();
+        });    
+
       },
       renderTimeline : function(){
         
