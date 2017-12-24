@@ -42,7 +42,9 @@ var app = new Vue({
       selectedDishes: [],
       person: 4,
       show : false,
-      ingredientSums : []
+      ingredientSums : [],
+      currentTimeTick : null,
+      executing : []
     },
     created : function(){
       var container = document.getElementById('visualization');
@@ -69,21 +71,51 @@ var app = new Vue({
         this.timeline.redraw();
 
         that = this;
-        this.timeline.on ('currentTimeTick', function () {
-          that.items.forEach(function(item,index){
+
+        if (this.currentTimeTick != null){
+            this.timeline.off ('currentTimeTick', this.currentTimeTick);
+            this.executing = [];
+        } 
+
+        for (var i = 0; i<this.timeline.itemSet.getItems().length; i++){
+          this.executing.push(false);
+        }
+
+        this.currentTimeTick = function(){
+          var items =  new vis.DataSet();
+          that.timeline.itemSet.getItems().forEach(function(item,index){
+            console.log("index" + index + that.executing[index]);
             if (item.start.toDate() < that.timeline.getCurrentTime() && that.timeline.getCurrentTime() < item.end.toDate()){
-              item.className = "background-availability";
+              if (that.executing[index] == false){
+                item.className = "background-availability";
+                var u = new SpeechSynthesisUtterance();
+                u.text = item.title;
+                u.lang = 'ja-JP';
+                u.rate = 1.0;
+                speechSynthesis.speak(u);
+                that.executing[index] = true;
+                that.timeline.itemSet.items[index].setData(item);
+                that.timeline.redraw();
+ 
+              }
             }
             else{
               item.className = "";
+              that.executing[index] = false;
+              that.timeline.itemSet.items[index].setData(item);
+              that.timeline.redraw();
             }
-            that.timeline.itemSet.items[index].setData(item);
           });
-          that.timeline.redraw();
-        });    
+        };
 
+        this.timeline.on ('currentTimeTick', this.currentTimeTick);    
       },
       renderTimeline : function(){
+
+        if (this.currentTimeTick != null){
+          this.timeline.off ('currentTimeTick', this.currentTimeTick);
+          this.executing = [];
+        }
         
         this.selectedDishes = [];
         var color = d3.scaleOrdinal(d3.schemeCategory10);
